@@ -2,14 +2,60 @@ package br.com.sosysters.pojo;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarias")
 public class Usuaria {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuaria")
+	private Long id;
+
+	@Column(name = "nome", nullable = false)
+	@JsonProperty("nomeUsuaria")
 	private String nomeUsuaria;
+
+	@Column(name = "sobrenome", nullable = false)
+	@JsonProperty("sobrenomeUsuaria")
 	private String sobrenomeUsuaria;
+
+	@Column(name = "dt_nascimento", nullable = false)
+	@JsonProperty("dataNascimento")
 	private Date dataNascimento;
-	private String rg, cpf;
-	private String email, senha;
-	private int etnia, genero;
-	private String reporte;
+
+	@Column(name = "rg", nullable = false)
+	@JsonProperty("rg")
+	private String rg;
+
+	@Column(name = "cpf", nullable = false)
+	@JsonProperty("cpf")
+	private String cpf;
+
+	@Column(name = "email", nullable = false)
+	@JsonProperty("email")
+	private String email;
+
+	@Column(name = "senha", nullable = false)
+	@JsonProperty("senha")
+	private String senha;
+
+	@Column(name = "id_etnia", nullable = false)
+	@JsonProperty("id_etnia")
+	private int etnia;
+
+	@Column(name = "id_genero", nullable = false)
+	@JsonProperty("id_genero")
+	private int genero;
+
+	//private String reporte;
 
 	public Usuaria() {
 

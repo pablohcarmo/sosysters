@@ -28,6 +28,7 @@ Figma (Design UX/UI);
 Lucidchart (modelagem de classes e DER);
 Eclipse IDE;
 Github;
+AWS - Amazon Web Services
 
 #Como executar:
 

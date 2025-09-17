@@ -12,6 +12,7 @@ Cadastro de usuárias (clientes e prestadoras); Solicitação e oferta de servi�
 #Tecnologias Utilizadas 
 
 ##Back-end##
+
 Java com Spring Boot;
 PostgreSQL (hospedado no Railway);
 DAO Pattern (Data Access Object);

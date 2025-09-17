@@ -12,21 +12,21 @@ Cadastro de usuárias (clientes e prestadoras); Solicitação e oferta de servi�
 #Tecnologias Utilizadas 
 
 ##Back-end##
-Java com Spring Boot
-PostgreSQL (hospedado no Railway)
-DAO Pattern (Data Access Object)
-APIs RESTful
+Java com Spring Boot;
+PostgreSQL (hospedado no Railway);
+DAO Pattern (Data Access Object);
+APIs RESTful;
 
 ##Front-end##
 
-HTML, CSS e JavaScript
-Figma (Design UX/UI)
+HTML, CSS e JavaScript;
+Figma (Design UX/UI);
 
 ##Ferramentas##
 
-Lucidchart (modelagem de classes e DER)
-Eclipse IDE
-Github
+Lucidchart (modelagem de classes e DER);
+Eclipse IDE;
+Github;
 
 #Como executar:
 
@@ -34,11 +34,11 @@ Github
 
 #Autores
 
-Gabriel Bezerra Silva
-Gabriela Gebrin
-Gilmar Correa Morais Junior
-Gustavo Stabile
-Matheus Mota Rodrigues
-Nicole Vieira Barros de Lima
-Pablo Henrique de Souza Carmo
-Vicente Luiz de Oliveira Junior
+Gabriel Bezerra Silva;
+Gabriela Gebrin;
+Gilmar Correa Morais Junior;
+Gustavo Stabile;
+Matheus Mota Rodrigues;
+Nicole Vieira Barros de Lima;
+Pablo Henrique de Souza Carmo;
+Vicente Luiz de Oliveira Junior.

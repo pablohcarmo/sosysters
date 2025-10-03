@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINHAS SOLICITAÇÕES</title>
+
+    <link rel="icon" href="./imagens/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./styles/style-minhas-sol.css">
+    <link rel="stylesheet" href="./styles/reset.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="menu-container">
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu" id="menu">
+                <a class="btn-menu" href="./perfil.html">
+                    <img class="foto-perfil" src="./imagens/foto perfil.png" alt="Foto perfil">
+                </a>
+                <a class="nome-perfil" href="./perfil.html">
+                    <p class="texto-menu">Maria Silva</p>
+                </a>
+                <a href="./feed.html">
+                    <img src="./imagens/icone-home.svg" alt="ícone de casa">
+                    <p class="texto-menu">Início</p>
+                </a>
+                <a href="./nova-solicitacao.html">
+                    <img src="./imagens/icone-minha-soli.svg" alt="ícone de nova solicitação">
+                    <p class="texto-menu">Nova Solicitação</p>
+                </a>
+                <a href="./minhas-solicitacoes.html">
+                    <img src="./imagens/icone-minha-soli.svg" alt="ícone de minhas solicitações">
+                    <p class="texto-menu">Minhas Solicitações</p>
+                </a>
+                <a class="itens-burguer" href="./pesquisa.html">
+                    <img src="./imagens/icone-lupa.svg" alt="ícone de lupa">
+                    <p class="texto-menu">Pesquisa</p>
+                </a>
+                <a href="./carteira.html">
+                    <img src="./imagens/icone-carteira.svg" alt="ícone de carteira">
+                    <p class="texto-menu">Carteira</p>
+                </a>
+                <a href="./tornar-prestadora.html">
+                    <img src="./imagens/icone-tornar.svg" alt="ícone de tornar prestadora">
+                    <p class="texto-menu">Tornar Prestadora</p>
+                </a>
+                <a href="./suporte.html">
+                    <img src="./imagens/icone-suporte.svg" alt="ícone de suporte">
+                    <p class="texto-menu">Suporte</p>
+                </a>
+                <a href="./avaliacoes.html">
+                    <img src="./imagens/icone-avaliacao.svg" alt="ícone de avaliação">
+                    <p class="texto-menu">Avaliações</p>
+                </a>
+                <a href="./config.html">
+                    <img src="./imagens/icone-config.svg" alt="ícone de configurções">
+                    <p class="texto-menu">Configurações</p>
+                </a>
+                <a href="./ajuda.html">
+                    <img src="./imagens/icone-ajuda.svg" alt="ícone de ajuda">
+                    <p class="texto-menu">Ajuda</p>
+                </a>
+            </div>
+        </div>
+        <a href="./feed.html">
+            <img class="img img_logo" src="./imagens/S.O.SYSTERS_2.png" alt="Logo SOSYSTERS">
+        </a>
+
+        <a href="./chat.html">
+            <img class="chat" class="img_logo" src="./imagens/Chat_icon-icons 1.png" alt="Icone chat">
+        </a>
+
+    </header>
+
+    <section class="secao texto">
+        <h2 class="titulo texto">Minhas Solicitações</h2>
+
+        <div class="button-container">
+            <button class="botao" data-filter="finalizados">Finalizados</button>
+            <button class="botao" data-filter="pendentes">Pendentes</button>
+            <button class="botao" data-filter="cancelados">Cancelados</button>
+            <button class="botao" data-filter="todos">Todos</button>
+        </div>
+
+        <ul class="lista-solicitacoes">
+            <li class="itens finalizados">
+                <div class="cabecalho-solicitacao">
+                    <p class="nome-solicitacao">Solicitação Finalizada</p>
+                    <img class="icone-status" src="./imagens/icone-confirmado.svg" alt="Ícone de confirmação">
+                </div>
+                <div class="descricao-solicitacao">
+                    <h3 class="sol-titulo">Reparo de Torneira</h3>
+                    <img src="./imagens/torneira.jpg" alt="Imagem do serviço" class="imagem-descricao">
+                    <p class="sol-descricao">Conserto de vazamento na torneira da cozinha, incluindo substituição de peças.</p>
+                </div>
+            </li>
+
+            <li class="itens pendentes">
+                <div class="cabecalho-solicitacao">
+                    <p class="nome-solicitacao">Solicitação Pendente</p>
+                    <img class="icone-status" src="./imagens/icone-pendente.svg" alt="Ícone de pendente">
+                </div>
+                <div class="descricao-solicitacao">
+                    <h3 class="sol-titulo">Pintura de Quarto</h3>
+                    <img src="./imagens/pintura.avif" alt="Imagem do serviço" class="imagem-descricao">
+                    <p class="sol-descricao">Serviço de pintura completa com tinta lavável, cor azul claro.</p>
+                </div>
+            </li>
+
+            <li class="itens cancelados">
+                <div class="cabecalho-solicitacao">
+                    <p class="nome-solicitacao">Solicitação Cancelada</p>
+                    <img class="icone-status" src="./imagens/icone-cancelado.svg" alt="Ícone de cancelado">
+                </div>
+                <div class="descricao-solicitacao">
+                    <h3 class="sol-titulo">Instalação de Ventilador</h3>
+                    <img src="./imagens/ventilador.jpg" alt="Imagem do serviço" class="imagem-descricao">
+                    <p class="sol-descricao">Instalação elétrica suspensa de ventilador de teto com controle remoto.</p>
+                </div>
+            </li>
+        </ul>
+
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <a class="footer-item" href="./minhas-solicitacoes.html">
+                <img src="./imagens/solicitacoes.png" alt="Minhas Solicitações">
+                <p class="texto-footer">Minhas Solicitações</p>
+            </a>
+            <a class="footer-item" href="./nova-solicitacao.html">
+                <img src="./imagens/criarSolicitacoes.png" alt="Criar Solicitações">
+                <p class="texto-footer">Criar Solicitações</p>
+            </a>
+            <a class="footer-item" href="./carteira.html">
+                <img src="./imagens/carteira.png" alt="Carteira">
+                <p class="texto-footer">Carteira</p>
+            </a>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/minhas-solicitacoes.js"></script>
+
+</body>
+
+</html>

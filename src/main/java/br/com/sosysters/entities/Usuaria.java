@@ -28,9 +28,6 @@ public class Usuaria {
 	@Column (name = "nome_social")
 	private String nomeSocialUsuaria;
 
-	@Column (name = "sobrenome_social")
-	private String sobrenomeSocialUsuaria;
-
 	@Column (name = "dt_nascimento")
 	private Date dtNascimentoUsuaria;
 
@@ -57,14 +54,13 @@ public class Usuaria {
 	}
 
 	public Usuaria(Long idUsuaria, String nomeUsuaria, String sobrenomeUsuaria, String nomeSocialUsuaria,
-			String sobrenomeSocialUsuaria, Date dtNascimentoUsuaria, String rgUsuaria, String cpfUsuaria,
+			Date dtNascimentoUsuaria, String rgUsuaria, String cpfUsuaria,
 			String emailUsuaria, String senhaUsuaria, int etniaUsuaria, int generoUsuaria) {
 		super();
 		this.idUsuaria = idUsuaria;
 		this.nomeUsuaria = nomeUsuaria;
 		this.sobrenomeUsuaria = sobrenomeUsuaria;
 		this.nomeSocialUsuaria = nomeSocialUsuaria;
-		this.sobrenomeSocialUsuaria = sobrenomeSocialUsuaria;
 		this.dtNascimentoUsuaria = dtNascimentoUsuaria;
 		this.rgUsuaria = rgUsuaria;
 		this.cpfUsuaria = cpfUsuaria;
@@ -104,14 +100,6 @@ public class Usuaria {
 
 	public void setNomeSocialUsuaria(String nomeSocialUsuaria) {
 		this.nomeSocialUsuaria = nomeSocialUsuaria;
-	}
-
-	public String getSobrenomeSocialUsuaria() {
-		return sobrenomeSocialUsuaria;
-	}
-
-	public void setSobrenomeSocialUsuaria(String sobrenomeSocialUsuaria) {
-		this.sobrenomeSocialUsuaria = sobrenomeSocialUsuaria;
 	}
 
 	public Date getDtNasciUsuaria() {
@@ -173,7 +161,7 @@ public class Usuaria {
 	@Override
 	public int hashCode() {
 		return Objects.hash(cpfUsuaria, dtNascimentoUsuaria, emailUsuaria, etniaUsuaria, generoUsuaria, idUsuaria,
-				nomeSocialUsuaria, nomeUsuaria, rgUsuaria, senhaUsuaria, sobrenomeSocialUsuaria, sobrenomeUsuaria);
+				nomeSocialUsuaria, nomeUsuaria, rgUsuaria, senhaUsuaria, sobrenomeUsuaria);
 	}
 
 	@Override
@@ -192,7 +180,6 @@ public class Usuaria {
 				&& Objects.equals(nomeSocialUsuaria, other.nomeSocialUsuaria)
 				&& Objects.equals(nomeUsuaria, other.nomeUsuaria) && Objects.equals(rgUsuaria, other.rgUsuaria)
 				&& Objects.equals(senhaUsuaria, other.senhaUsuaria)
-				&& Objects.equals(sobrenomeSocialUsuaria, other.sobrenomeSocialUsuaria)
 				&& Objects.equals(sobrenomeUsuaria, other.sobrenomeUsuaria);
 	}
 }

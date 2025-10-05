@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../styles/style-cadastro.css">
+    <link rel="stylesheet" href="../styles/reset.css">
+</head>
+<body>
+    
+    <form id="meuFormulario">
+        <img src="../images/S.O 1.png" alt="logo-sosysters">
+
+        <label class="texto-form" for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label class="texto-form" for="sobrenome">Sobrenome:</label>
+        <input type="text" id="sobrenome" name="sobrenome" required>
+
+        <label class="texto-form" for="nomeSocial">Nome Social</label>
+        <input type="text" id="nomeSocial" name="nomeSocial">
+           
+        <label class="texto-form" for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento" name="dataNascimento" required>
+
+        <label class="texto-form" for="rg">RG:</label>
+        <input type="text" id="rg" name="rg" required>
+
+        <label class="texto-form" for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+
+        <label class="texto-form" for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label class="texto-form" for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+
+        <label class="texto-form" for="etnia">Etnia:</label>
+        <select id="etnia" name="etnia" required>
+            <option value="">Carregando...</option>
+        </select>
+
+        <label class="texto-form" for="genero">Gênero:</label>
+        <select id="genero" name="genero" required>
+            <option value="">Carregando...</option>
+        </select>
+
+        <button type="submit" class="btn">Cadastrar</button>
+    </form>
+
+    <script type="text/javascript" src="../js/api/endpoints.js"></script>
+    <script type="text/javascript" src="../js/cadastro.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEED</title>
+    
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../styles/style-feed.css">
+    <link rel="stylesheet" href="../styles/reset.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="menu-container">
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu" id="menu">
+                <a class="btn-menu" href="../perfil.html">
+                    <img class="foto-perfil" src="../images/foto perfil.png" alt="Foto perfil">
+                </a>
+                <a class="nome-perfil" href="../perfil.html">
+                    <p class="texto-menu">Maria Silva</p>
+                </a>
+                <a href="../feed.html">
+                    <img src="../images/icone-home.svg" alt="ícone de casa">
+                    <p class="texto-menu">Início</p>
+                </a>
+                <a href="../nova-solicitacao.html">
+                    <img src="../images/icone-minha-soli.svg" alt="ícone de nova solicitação">
+                    <p class="texto-menu">Nova Solicitação</p>
+                </a>
+                <a href="../minhas-solicitacoes.html">
+                    <img src="../images/icone-minha-soli.svg" alt="ícone de minhas solicitações">
+                    <p class="texto-menu">Minhas Solicitações</p>
+                </a>
+                <a class="itens-burguer" href="../pesquisa.html">
+                    <img src="../images/icone-lupa.svg" alt="ícone de lupa">
+                    <p class="texto-menu">Pesquisa</p>
+                </a>
+                <a href="../carteira.html">
+                    <img src="../images/icone-carteira.svg" alt="ícone de carteira">
+                    <p class="texto-menu">Carteira</p>
+                </a>
+                <a href="../tornar-prestadora.html">
+                    <img src="../images/icone-tornar.svg" alt="ícone de tornar prestadora">
+                    <p class="texto-menu">Tornar Prestadora</p>
+                </a>
+                <a href="../suporte.html">
+                    <img src="../images/icone-suporte.svg" alt="ícone de suporte">
+                    <p class="texto-menu">Suporte</p>
+                </a>
+                <a href="../avaliacoes.html">
+                    <img src="../images/icone-avaliacao.svg" alt="ícone de avaliação">
+                    <p class="texto-menu">Avaliações</p>
+                </a>
+                <a href="../config.html">
+                    <img src="../images/icone-config.svg" alt="ícone de configurções">
+                    <p class="texto-menu">Configurações</p>
+                </a>
+                <a href="../ajuda.html">
+                    <img src="../images/icone-ajuda.svg" alt="ícone de ajuda">
+                    <p class="texto-menu">Ajuda</p>
+                </a>
+            </div>
+        </div>
+        <a href="../feed.html">
+            <img class="img img_logo" src="../images/S.O.SYSTERS_2.png" alt="Logo SOSYSTERS">
+        </a>
+        
+        <a href="../chat.html">
+            <img class="chat" class="img_logo" src="../images/Chat_icon-icons 1.png" alt="Icone chat">
+        </a>
+        
+    </header>
+    
+    <div class="carrossel-container">
+        <div class="carrossel" id="carrossel1">
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 1">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 2.png" alt="Imagem 2">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 3">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button onclick="prevSlide('carrossel1')">&#10094;</button>
+            <button onclick="nextSlide('carrossel1')">&#10095;</button>
+        </div>
+    </div>
+    
+    <div class="carrossel-container">
+        <div class="carrossel" id="carrossel2">
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 1">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 2.png" alt="Imagem 2">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 3">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button onclick="prevSlide('carrossel2')">&#10094;</button>
+            <button onclick="nextSlide('carrossel2')">&#10095;</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <a class="footer-item" href="../minhas-solicitacoes.html">
+                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
+                <p class="texto-footer">Minhas Solicitações</p>
+            </a>
+            <a class="footer-item" href="../nova-solicitacao.html">
+                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
+                <p class="texto-footer">Criar Solicitações</p>
+            </a>
+            <a class="footer-item" href="../carteira.html">
+                <img src="../images/carteira.png" alt="Carteira">
+                <p class="texto-footer">Carteira</p>
+            </a>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="../js/main.js"></script>
+
+</body>
+</html>

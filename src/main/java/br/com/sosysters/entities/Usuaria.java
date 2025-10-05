@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,9 +30,6 @@ public class Usuaria {
 	@Column (name = "nome_social")
 	private String nomeSocialUsuaria;
 
-	@Column (name = "sobrenome_social")
-	private String sobrenomeSocialUsuaria;
-
 	@Column (name = "dt_nascimento")
 	private Date dtNascimentoUsuaria;
 
@@ -46,32 +45,32 @@ public class Usuaria {
 	@Column (name = "senha")
 	private String senhaUsuaria;
 
-	@Column (name = "id_etnia")
-	private int etniaUsuaria;
+	@ManyToOne
+	@JoinColumn (name = "id_etnia")
+	private Etnia etniaUsuaria;
 
-	@Column (name = "id_genero")
-	private int generoUsuaria;
+	@ManyToOne
+	@JoinColumn (name = "id_genero")
+	private Genero generoUsuaria;
 
 	public Usuaria() {
 
 	}
 
 	public Usuaria(Long idUsuaria, String nomeUsuaria, String sobrenomeUsuaria, String nomeSocialUsuaria,
-			String sobrenomeSocialUsuaria, Date dtNascimentoUsuaria, String rgUsuaria, String cpfUsuaria,
-			String emailUsuaria, String senhaUsuaria, int etniaUsuaria, int generoUsuaria) {
-		super();
+			Date dtNascimentoUsuaria, String rgUsuaria, String cpfUsuaria,
+			String emailUsuaria, String senhaUsuaria, Etnia etniaUsuaria, Genero generoUsuaria) {
 		this.idUsuaria = idUsuaria;
 		this.nomeUsuaria = nomeUsuaria;
 		this.sobrenomeUsuaria = sobrenomeUsuaria;
 		this.nomeSocialUsuaria = nomeSocialUsuaria;
-		this.sobrenomeSocialUsuaria = sobrenomeSocialUsuaria;
 		this.dtNascimentoUsuaria = dtNascimentoUsuaria;
 		this.rgUsuaria = rgUsuaria;
 		this.cpfUsuaria = cpfUsuaria;
 		this.emailUsuaria = emailUsuaria;
 		this.senhaUsuaria = senhaUsuaria;
 		this.etniaUsuaria = etniaUsuaria;
-		this.generoUsuaria = generoUsuaria;
+	    this.generoUsuaria = generoUsuaria;
 	}
 
 	public Long getIdUsuaria() {
@@ -106,20 +105,12 @@ public class Usuaria {
 		this.nomeSocialUsuaria = nomeSocialUsuaria;
 	}
 
-	public String getSobrenomeSocialUsuaria() {
-		return sobrenomeSocialUsuaria;
-	}
-
-	public void setSobrenomeSocialUsuaria(String sobrenomeSocialUsuaria) {
-		this.sobrenomeSocialUsuaria = sobrenomeSocialUsuaria;
-	}
-
-	public Date getDtNasciUsuaria() {
+	public Date getDtNascimentoUsuaria() {
 		return dtNascimentoUsuaria;
 	}
 
-	public void setDtNasciUsuaria(Date dtNasciUsuaria) {
-		this.dtNascimentoUsuaria = dtNasciUsuaria;
+	public void setDtNascimentoUsuaria(Date dtNascimentoUsuaria) {
+		this.dtNascimentoUsuaria = dtNascimentoUsuaria;
 	}
 
 	public String getCpfUsuaria() {
@@ -154,26 +145,26 @@ public class Usuaria {
 		this.senhaUsuaria = senhaUsuaria;
 	}
 
-	public int getEtniaUsuaria() {
-		return etniaUsuaria;
+	public Etnia getEtniaUsuaria() {
+	    return etniaUsuaria;
 	}
 
-	public void setEtniaUsuaria(int etniaUsuaria) {
-		this.etniaUsuaria = etniaUsuaria;
+	public void setEtniaUsuaria(Etnia etniaUsuaria) {
+	    this.etniaUsuaria = etniaUsuaria;
 	}
 
-	public int getGeneroUsuaria() {
-		return generoUsuaria;
+	public Genero getGeneroUsuaria() {
+	    return generoUsuaria;
 	}
 
-	public void setGeneroUsuaria(int generoUsuaria) {
-		this.generoUsuaria = generoUsuaria;
+	public void setGeneroUsuaria(Genero generoUsuaria) {
+	    this.generoUsuaria = generoUsuaria;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(cpfUsuaria, dtNascimentoUsuaria, emailUsuaria, etniaUsuaria, generoUsuaria, idUsuaria,
-				nomeSocialUsuaria, nomeUsuaria, rgUsuaria, senhaUsuaria, sobrenomeSocialUsuaria, sobrenomeUsuaria);
+				nomeSocialUsuaria, nomeUsuaria, rgUsuaria, senhaUsuaria, sobrenomeUsuaria);
 	}
 
 	@Override
@@ -192,7 +183,6 @@ public class Usuaria {
 				&& Objects.equals(nomeSocialUsuaria, other.nomeSocialUsuaria)
 				&& Objects.equals(nomeUsuaria, other.nomeUsuaria) && Objects.equals(rgUsuaria, other.rgUsuaria)
 				&& Objects.equals(senhaUsuaria, other.senhaUsuaria)
-				&& Objects.equals(sobrenomeSocialUsuaria, other.sobrenomeSocialUsuaria)
 				&& Objects.equals(sobrenomeUsuaria, other.sobrenomeUsuaria);
 	}
 }

@@ -1,23 +1,23 @@
 // Coletar dados do formulário HTML
 function coletarDadosFormulario() {
     return {
-        nome: document.getElementById("nome").value,
-        sobrenome: document.getElementById("sobrenome").value,
-        nomeSocial: document.getElementById("nomeSocial").value,
-        dataNascimento: document.getElementById("dataNascimento").value,
-        rg: document.getElementById("rg").value,
-        cpf: document.getElementById("cpf").value,
-        email: document.getElementById("email").value,
-        senha: document.getElementById("senha").value,
-        etnia: document.getElementById("etnia").value,
-        genero: document.getElementById("genero").value
+        nomeUsuaria: document.getElementById("nome").value,
+        sobrenomeUsuaria: document.getElementById("sobrenome").value,
+        nomeSocialUsuaria: document.getElementById("nomeSocial").value || null,
+        dtNascimentoUsuaria: document.getElementById("dataNascimento").value,
+        rgUsuaria: document.getElementById("rg").value,
+        cpfUsuaria: document.getElementById("cpf").value,
+        emailUsuaria: document.getElementById("email").value,
+        senhaUsuaria: document.getElementById("senha").value,
+        etniaUsuaria: parseInt(document.getElementById("etnia").value) || null,
+        generoUsuaria: parseInt(document.getElementById("genero").value) || null
     };
 }
 
 // Função para receber os dados
 async function cadastrarUsuario(dadosUsuario) {
     try {
-        const response = await fetch('/api/usuarios', {
+        const response = await fetch('http://localhost:8080/usuarias', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,14 +29,14 @@ async function cadastrarUsuario(dadosUsuario) {
             throw new Error(`Erro: ${response.status}`);
         }
 
-        return await response.json();
+        return await response.text();
     } catch (error) {
         console.error('Erro ao enviar dados:', error);
         throw error;
     }
 }
 
-// Popula o select de etnias
+// Popula o select de etnias do back-end
 async function carregarEtnia() {
     try {
         const etnias = await buscarEtnias();
@@ -45,7 +45,7 @@ async function carregarEtnia() {
         selectEtnia.innerHTML = '<option value="">Selecione uma etnia</option>';
         etnias.forEach(etnia => {
             const option = document.createElement('option');
-            option.value = etnia.id;
+            option.value = etnia.idEtnia;
             option.textContent = etnia.etnia;
             selectEtnia.appendChild(option);
         });
@@ -55,24 +55,52 @@ async function carregarEtnia() {
     }
 }
 
+// Popula o select de gêneros do back-end
+async function carregarGenero() {
+    try {
+        const generos = await buscarGeneros();
+        const selectGeneros = document.getElementById('genero');
+
+        selectGeneros.innerHTML = '<option value="">Selecione</option>';
+        generos.forEach(genero => {
+            const option = document.createElement('option');
+            option.value = genero.idGenero;
+            option.textContent = genero.genero;
+            selectGeneros.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar generos:', error);
+        alert('Erro ao carregar generos');
+    }
+}
+
 // Configuração quando a página carrega
 document.addEventListener('DOMContentLoaded', function() {
-    // Carrega as etnias primeiro
     carregarEtnia();
+    carregarGenero();
 
-    // Configura o envio do formulário
     const formulario = document.getElementById('meuFormulario');
     
     formulario.addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        // Coleta dos dados do formulário
         const dadosUsuario = coletarDadosFormulario();
 
-        // Envio dos dados para o back-end
+        // Validação básica
+        if (!dadosUsuario.etniaUsuaria) {
+            alert('Por favor, selecione uma etnia.');
+            return;
+        }
+        
+        if (!dadosUsuario.generoUsuaria) {
+            alert('Por favor, selecione um gênero.');
+            return;
+        }
+
         try {
             await cadastrarUsuario(dadosUsuario);
-            alert('Usuário cadastrado com sucesso!');
+            alert('Usuária cadastrada com sucesso!');
+            formulario.reset(); // Limpar formulário após sucesso
         } catch (error) {
             alert('Erro no cadastro: ' + error.message);
         }

@@ -1,6 +1,5 @@
 package br.com.sosysters.entities;
 
-import java.sql.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -27,7 +26,6 @@ public class Etnia {
 	}
 
 	public Etnia(Long idUsuaria, String nomeUsuaria) {
-		super();
 		this.idEtnia = idUsuaria;
 		this.etnia = nomeUsuaria;
 	}

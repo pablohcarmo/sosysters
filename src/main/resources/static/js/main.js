@@ -84,50 +84,25 @@ formulario.addEventListener('submit', (event) => {
     const etnia = document.getElementById('etnia').value;
     const genero = document.getElementById('genero').value;
 
-    if (!nome) {
-        alert('O campo nome é obrigatório.');
-        return false;
-    }
+    // Validações de campos obrigatórios
+    const camposObrigatorios = [
+        { campo: nome, nome: 'nome' },
+        { campo: sobrenome, nome: 'sobrenome' },
+        { campo: dataNascimento, nome: 'data de nascimento' },
+        { campo: rg, nome: 'RG' },
+        { campo: cpf, nome: 'CPF' },
+        { campo: email, nome: 'email' },
+        { campo: senha, nome: 'senha' },
+        { campo: etnia, nome: 'etnia' },
+        { campo: genero, nome: 'gênero' }
+    ];
 
-    if (!sobrenome) {
-        alert('O campo sobrenome é obrigatório.');
-        return false;
-    }
-
-    if (!dataNascimento) {
-        alert('O campo data de nascimento é obrigatório.');
-        return false;
-    }
-
-    if (!rg) {
-        alert('O campo RG é obrigatório.');
-        return false;
-    }
-
-    if (!cpf) {
-        alert('O campo CPF é obrigatório.');
-        return false;
-    }
-
-    if (!email) {
-        alert('O campo email é obrigatório.');
-        return false;
-    }
-
-    if (!senha) {
-        alert('O campo senha é obrigatório.');
-        return false;   
-
-    }
-
-    if (!etnia) {
-        alert('O campo etnia é obrigatório.');
-        return false;
-    }
-
-    if (!genero) {
-        alert('O campo gênero é obrigatório.');
-        return false;
+    // Verifica se todos os campos obrigatórios estão preenchidos
+    for (const item of camposObrigatorios) {
+        if (!item.campo) {
+            alert(`O campo ${item.nome} é obrigatório.`);
+            return false;
+        }
     }
 
     // Validação de email (simplificada)
@@ -141,50 +116,6 @@ formulario.addEventListener('submit', (event) => {
     if (senha.length < 8) {
         alert('A senha deve ter pelo menos 8 caracteres.');
         return false;
-    }
-
-    alert('Formulário válido! Dados enviados.');
+    }    alert('Formulário válido! Dados enviados.');
     return true;
-});
-
-
-
-//JS NOVA SOLICITAÇÃO
-const form = document.getElementById('form-solicitacao');
-
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); // Impede o envio padrão do formulário
-
-  // Obtenha os dados do formulário
-  const servico = document.getElementById('servico').value;
-  const problema = document.getElementById('problema').value;
-  const fotos = document.getElementById('fotos').files;
-
-  // Crie um objeto com os dados do formulário
-  const formData = new FormData();
-  formData.append('servico', servico);
-  formData.append('problema', problema);
-  for (let i = 0; i < fotos.length; i++) {
-    formData.append('fotos', fotos[i]);
-  }
-
-  // Envie os dados para o servidor (substitua a URL pelo seu endpoint)
-  fetch('/seu-endpoint', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erro ao enviar os dados');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Dados enviados com sucesso:', data);
-    // Exibir mensagem de sucesso para o usuário
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-    // Exibir mensagem de erro para o usuário
-  });
 });

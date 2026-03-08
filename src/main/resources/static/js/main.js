@@ -63,9 +63,6 @@ function prevSlide(id) {
     }
 }
 
-
-
-
 //JS CADASTRO
 const formulario = document.getElementById('meuFormulario');
 

@@ -13,3 +13,60 @@
         max-width: 40vw;
     }
 }
+
+
+
+/*  
+/*NA TAG HEAD
+
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+/*NA TAG STYLE NESSA ORDEM E COMO ULTIMO ITEM DA TAG (as cores são diferentes porque eu estava testando)
+
+.container-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 100%; /* Ocupa 100% da largura no celular 
+}
+
+
+
+/*ESTILO PRA TABLET
+@media (min-width: 768px) {
+    .card {
+        flex: 1 1 calc(50% - 20px); 
+        background-color: #f0f8ff; /* Cor opcional 
+    }
+}
+
+
+
+        @media (min-width: 600px) {
+            .card {
+
+                background-color: #e3f2fd;
+            }
+        }
+
+
+        @media (min-width: 1024px) {
+            .card {
+                flex: 1 1 calc(33.333% - 20px);
+                background-color: #e8f5e9;
+            }
+        }
+
+/* ESTILO PRO PC 
+@media (min-width: 1024px) {
+    .card {
+        flex: 1 1 calc(33.333% - 20px); 
+        background-color: #f5f5f5; /* cor opcional para testar se mudou ae
+    }
+}
+
+|*/

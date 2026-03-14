@@ -30,7 +30,8 @@
         <input type="text" id="rg" name="rg" required>
 
         <label class="texto-form" for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+        <input type="text" id="cpf" name="cpf" required maxlength="14" oninput="validarEReformatarCPF(this)" required>
+        <span id="cpf-feedback" style="font-size: 12px;"></span>
 
          <label class="texto-form" for="cep">CEP:</label>
         <input type="text" id="cep" name="cep" required>

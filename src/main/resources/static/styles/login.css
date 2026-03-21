@@ -1,0 +1,49 @@
+@import url(./geral.css);
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 10px;
+}
+
+.img_logo {
+    width: 100%;
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+
+/* Inputs */
+.campo_login {
+    width: 250px;
+    padding: 10px;
+}
+
+/* Botão */
+.btn_entrar {
+    width: 250px;
+    padding: 10px;
+    background-color: #d97c45;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    display: block; 
+}
+
+/* Links */
+.btn_esqueci,
+.btn_criar {
+    display: block; 
+    margin-top: 5px;
+    text-align: center;
+}

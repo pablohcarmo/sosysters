@@ -6,69 +6,114 @@
     <title>Cadastro</title>
 
     <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../styles/style-cadastro.css">
     <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/style-cadastro.css">
+    <link rel="stylesheet" href="../styles/responsividade.css">
+    
 </head>
 <body>
     
     <form id="meuFormulario">
         <img src="../images/S.O 1.png" alt="logo-sosysters">
 
-        <label class="texto-form" for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <!-- Nome + Sobrenome -->
+        <div class="linha duas-colunas">
+            <div>
+                <label class="texto-form" for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-        <label class="texto-form" for="sobrenome">Sobrenome:</label>
-        <input type="text" id="sobrenome" name="sobrenome" required>
+            <div>
+                <label class="texto-form" for="sobrenome">Sobrenome:</label>
+                <input type="text" id="sobrenome" name="sobrenome" required>
+            </div>
+        </div>
 
+        <!-- Nome Social -->
         <label class="texto-form" for="nomeSocial">Nome Social</label>
         <input type="text" id="nomeSocial" name="nomeSocial">
-           
+
+        <!-- Data de Nascimento -->
         <label class="texto-form" for="dataNascimento">Data de Nascimento:</label>
         <input type="date" id="dataNascimento" name="dataNascimento" required>
 
-        <label class="texto-form" for="rg">RG:</label>
-        <input type="text" id="rg" name="rg" required>
+        <!-- RG + CPF -->
+        <div class="linha duas-colunas">
+            <div>
+                <label class="texto-form" for="rg">RG:</label>
+                <input type="text" id="rg" name="rg" required>
+            </div>
 
-        <label class="texto-form" for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required maxlength="14" oninput="validarEReformatarCPF(this)" required>
-        <span id="cpf-feedback" style="font-size: 12px;"></span>
+            <div>
+                <label class="texto-form" for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" maxlength="14" oninput="validarEReformatarCPF(this)" required>
+                <span id="cpf-feedback" style="font-size: 12px;"></span>
+            </div>
+        </div>
 
-         <label class="texto-form" for="cep">CEP:</label>
-        <input type="text" id="cep" name="cep" required>
+        <!-- CEP + Número -->
+        <div class="linha duas-colunas">
+            <div>
+                <label class="texto-form" for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" required>
+            </div>
 
+            <div>
+                <label class="texto-form" for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" required>
+            </div>
+        </div>
+
+        <!-- Rua -->
         <label class="texto-form" for="logradouro">Rua:</label>
         <input type="text" id="logradouro" name="logradouro" required>
 
-        <label class="texto-form" for="numero">Número:</label>
-        <input type="text" id="numero" name="numero" required>
-
+        <!-- Complemento -->
         <label class="texto-form" for="complemento">Complemento:</label>
         <input type="text" id="complemento" name="complemento" required>
 
-        <label class="texto-form" for="bairro">Bairro:</label>
-        <input type="text" id="bairro" name="bairro" required>
+        <!-- Bairro + Cidade + Estado -->
+        <div class="linha tres-colunas">
+            <div>
+                <label class="texto-form" for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" required>
+            </div>
 
-        <label class="texto-form" for="cidade">Cidade:</label>
-        <input type="text" id="cidade" name="cidade" required>
+            <div>
+                <label class="texto-form" for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" required>
+            </div>
 
-        <label class="texto-form" for="estado">Estado:</label>
-        <input type="text" id="estado" name="estado" required>
+            <div>
+                <label class="texto-form" for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" required>
+            </div>
+        </div>
 
+        <!-- Email -->
         <label class="texto-form" for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
+        <!-- Senha -->
         <label class="texto-form" for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required>
 
-        <label class="texto-form" for="etnia">Etnia:</label>
-        <select id="etnia" name="etnia" required>
-            <option value="">Carregando...</option>
-        </select>
+        <!-- Etnia + Gênero -->
+        <div class="linha duas-colunas">
+            <div>
+                <label class="texto-form" for="etnia">Etnia:</label>
+                <select id="etnia" name="etnia" required>
+                    <option value="">Carregando...</option>
+                </select>
+            </div>
 
-        <label class="texto-form" for="genero">Gênero:</label>
-        <select id="genero" name="genero" required>
-            <option value="">Carregando...</option>
-        </select>
+            <div>
+                <label class="texto-form" for="genero">Gênero:</label>
+                <select id="genero" name="genero" required>
+                    <option value="">Carregando...</option>
+                </select>
+            </div>
+        </div>
 
         <button type="submit" class="btn">Cadastrar</button>
     </form>

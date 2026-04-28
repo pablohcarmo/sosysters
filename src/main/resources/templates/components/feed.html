@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERFIL</title>
+    <title>FEED</title>
     
     <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../styles/style-perfil.css">
-    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../css/style-feed.css">
+    <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
 
@@ -77,44 +77,78 @@
         
     </header>
     
-    <section class="secao">
-        <div class="perfil">
-            <img class="foto-perfil" src="../images/foto perfil.png" alt="Foto do usuário">
-            <h2 class="nome-usuario">Maria Silva</h2>
-            <p class="profissao">Pintora</p>
-    
-            <div class="avaliacao">
-                <span class="estrela" data-valor="1">★</span>
-                <span class="estrela" data-valor="2">★</span>
-                <span class="estrela" data-valor="3">★</span>
-                <span class="estrela" data-valor="4">★</span>
-                <span class="estrela" data-valor="5">★</span>
+    <div class="carrossel-container">
+        <div class="carrossel" id="carrossel1">
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 1">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
             </div>
-    
-            <p class="nota">Avaliação: <span id="nota-media">0.0</span>/5</p>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 2.png" alt="Imagem 2">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 3">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
         </div>
-    </section>
+        <div class="buttons">
+            <button onclick="prevSlide('carrossel1')">&#10094;</button>
+            <button onclick="nextSlide('carrossel1')">&#10095;</button>
+        </div>
+    </div>
     
+    <div class="carrossel-container">
+        <div class="carrossel" id="carrossel2">
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 1">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 2.png" alt="Imagem 2">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+            <div class="carrossel-item">
+                <img src="../images/carrossel 1.png" alt="Imagem 3">
+                <div class="carrossel-title">
+                    <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button onclick="prevSlide('carrossel2')">&#10094;</button>
+            <button onclick="nextSlide('carrossel2')">&#10095;</button>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
                 <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
-                <p>Minhas Solicitações</p>
+                <p class="texto-footer">Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
                 <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
-                <p>Criar Solicitações</p>
+                <p class="texto-footer">Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
                 <img src="../images/carteira.png" alt="Carteira">
-                <p>Carteira</p>
+                <p class="texto-footer">Carteira</p>
             </a>
         </div>
     </footer>
 
     <script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../js/perfil.js"></script>
 
 </body>
 </html>

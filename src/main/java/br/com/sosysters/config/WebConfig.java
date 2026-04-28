@@ -2,12 +2,11 @@ package br.com.sosysters.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,29 +24,41 @@ public class WebConfig implements WebMvcConfigurer {
 		.allowCredentials(false);
 	}
 
-    // Usuário de testes
-    @Bean
-    UserDetailsService testUsers() {
-        UserDetails user1 = User.builder()
-                .username("admin")
-                .password("teste123")
-                .build();
-        return new InMemoryUserDetailsManager(user1);
-    }
-
-	public SecurityFilterChain securityFilters(HttpSecurity http) throws  Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception {
 		return http.authorizeHttpRequests(req -> {
-					req.requestMatchers("/css/**", "/js/**", "/assets/**").permitAll();
+					req.requestMatchers(
+						"/login",
+						"/logout",
+						"/error",
+						"/css/**",
+						"/js/**",
+						"/images/**",
+						"/pages/**",
+						"/assets/**",
+						"/favicon.ico",
+						"/",
+						"/home",
+						"/index").permitAll();
 					req.anyRequest().authenticated();
 				})
 
 				.formLogin(form ->
 						form.loginPage("/login")
-								.defaultSuccessUrl("/")
+								.defaultSuccessUrl("/feed")
 								.permitAll())
 				.logout(logout ->
 						logout.logoutSuccessUrl("/login?logout")
 								.permitAll())
+
+				.rememberMe(rememberMe -> rememberMe.key("lembrarDeMim")
+						.alwaysRemember(true))
+				.csrf(Customizer.withDefaults())
 				.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

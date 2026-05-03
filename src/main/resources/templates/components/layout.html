@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$CONTENT_TITLE - Sosysters">Sosysters</title>
+
+    <link rel="icon" th:href="@{/images/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/resposividade.css}">
+
+    <!-- Custom Head Fragment for individual pages -->
+    <th:block layout:fragment="head"></th:block>
+</head>
+<body>
+    <!-- Header com Hamburger Menu -->
+    <th:block th:replace="components/header :: header"></th:block>
+
+    <!-- Conteúdo Principal -->
+    <main layout:fragment="content">
+        <!-- O conteúdo da página será inserido aqui -->
+    </main>
+
+    <!-- Footer -->
+    <th:block th:replace="components/footer :: footer"></th:block>
+
+    <!-- Scripts -->
+    <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+</body>
+</html>

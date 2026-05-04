@@ -1,73 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 </head>
 <body>
     <header class="cabecalho" th:fragment="header">
-        <div class="menu-container">
-            <div class="hamburger" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="menu" id="menu">
-                <a class="btn-menu" th:href="@{/perfil}">
-                    <img class="foto-perfil" th:src="@{/images/foto perfil.png}" alt="Foto perfil">
-                </a>
-                <a class="nome-perfil" th:href="@{/perfil}">
-                    <p class="texto-menu">Maria Silva</p>
-                </a>
-                <a th:href="@{/feed}">
-                    <img th:src="@{/images/icone-home.svg}" alt="ícone de casa">
-                    <p class="texto-menu">Início</p>
-                </a>
-                <a th:href="@{/nova-solicitacao}">
-                    <img th:src="@{/images/icone-minha-soli.svg}" alt="ícone de nova solicitação">
-                    <p class="texto-menu">Nova Solicitação</p>
-                </a>
-                <a th:href="@{/minhas-solicitacoes}">
-                    <img th:src="@{/images/icone-minha-soli.svg}" alt="ícone de minhas solicitações">
-                    <p class="texto-menu">Minhas Solicitações</p>
-                </a>
-                <a class="itens-burguer" th:href="@{/pesquisa}">
-                    <img th:src="@{/images/icone-lupa.svg}" alt="ícone de lupa">
-                    <p class="texto-menu">Pesquisa</p>
-                </a>
-                <a th:href="@{/carteira}">
-                    <img th:src="@{/images/icone-carteira.svg}" alt="ícone de carteira">
-                    <p class="texto-menu">Carteira</p>
-                </a>
-                <a th:href="@{/tornar-prestadora}">
-                    <img th:src="@{/images/icone-tornar.svg}" alt="ícone de tornar prestadora">
-                    <p class="texto-menu">Tornar Prestadora</p>
-                </a>
-                <a th:href="@{/suporte}">
-                    <img th:src="@{/images/icone-suporte.svg}" alt="ícone de suporte">
-                    <p class="texto-menu">Suporte</p>
-                </a>
-                <a th:href="@{/avaliacoes}">
-                    <img th:src="@{/images/icone-avaliacao.svg}" alt="ícone de avaliação">
-                    <p class="texto-menu">Avaliações</p>
-                </a>
-                <a th:href="@{/config}">
-                    <img th:src="@{/images/icone-config.svg}" alt="ícone de configurções">
-                    <p class="texto-menu">Configurações</p>
-                </a>
-                <a th:href="@{/ajuda}">
-                    <img th:src="@{/images/icone-ajuda.svg}" alt="ícone de ajuda">
-                    <p class="texto-menu">Ajuda</p>
-                </a>
-            </div>
-        </div>
         <a th:href="@{/feed}">
-            <img class="img img_logo" th:src="@{/images/S.O.SYSTERS_2.png}" alt="Logo SOSYSTERS">
+            <img class="img img_logo" th:src="@{/images/logo.png}" alt="Logo Sosysters">
         </a>
 
-        <a th:href="@{/chat}">
-            <img class="chat" th:src="@{/images/Chat_icon-icons 1.png}" alt="Icone chat">
+        <a th:href="@{/chats}">
+            <img class="chat" th:src="@{/images/icons/icon_chats.png}" alt="Icone chat">
         </a>
     </header>
 </body>
 </html>
-

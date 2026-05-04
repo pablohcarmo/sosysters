@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
-    <link rel="icon" href="../../static/images/icons/icon_sosysters.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/styles.css">
+    <link rel="icon" th:href="@{/images/icons/icon_sosysters.png}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 
@@ -18,11 +18,11 @@
         <input class="campo_login" type="Login" value="" placeholder="Digite seu email">
         <p class="login">Senha</p>
         <input class="campo_login" type="password" value="" placeholder="Digite sua senha">
-        <a class="btn_entrar ancora" href="../feed.html">Entrar</a>
-        <a class="btn_esqueci ancora" href="">Esqueci minha senha</a>
-        <a class="btn_criar ancora" href="../cadastro.html">Criar uma conta</a>
+        <a class="btn_entrar ancora" th:href="@{/feed}">Entrar</a>
+        <a class="btn_esqueci ancora" th:href="@{/suporte}">Esqueci minha senha</a>
+        <a class="btn_criar ancora" th:href="@{/cadastro}">Criar uma conta</a>
     </div>
 
-    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
 </body>
 </html>

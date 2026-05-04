@@ -51,6 +51,14 @@
             <img th:src="@{/images/icone-ajuda.svg}" alt="ícone de ajuda">
             <p class="texto-menu">Ajuda</p>
         </a>
+
+        <!-- Logout (POST) -->
+        <form th:action="@{/logout}" method="post" class="logout-form" th:if="${#authentication?.principal != null}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="logout-button">
+                <img th:src="@{/images/buttons/logout.png}" alt="ícone de sair">
+                <span class="texto-menu">Sair</span>
+            </button>
+        </form>
     </div>
 </div>
-

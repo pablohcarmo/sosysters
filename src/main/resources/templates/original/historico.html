@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVALIAÇÕES</title>
+    <title>HISTORICO</title>
     
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../css/style-avaliacoes.css">
+    <link rel="icon" href="../images/icons/icon_sosysters.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style-historico.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
@@ -78,52 +78,100 @@
     </header>
     
     <section class="secao">
+        <H1 class="titulo">Histórico</H1>
+
         <div class="container">
-            <div class="profile">
-                <h2>Perfil do Usuário</h2>
-                <p class="rating">⭐ <span id="media-nota">0.0</span></p>
-                <p><strong>Total de Avaliações:</strong> <span id="total-avaliacoes">0</span></p>
-            </div>
-            <div class="ratings">
-                <h3>Distribuição das Avaliações</h3>
-                <div class="rating-bar">
-                    <span>⭐ 5</span> <div class="bar"><div id="bar-5"></div></div> <span id="count-5">0</span>
+            <a class="btn" href="../carteira.html">
+                <img src="../images/icone-saldo.svg" alt="Icone de saldo" class="icone">
+                <p class="texto">Saldo</p>
+            </a>
+            <a class="btn" href="../loja.html">
+                <img src="../images/icone-loja.svg" alt="icone de loja" class="icone">
+                <p class="texto">Loja virtual</p>
+            </a>
+            <a class="btn btn-atual" href="../historico.html">
+                <img src="../images/icone-historico.svg" alt="Icone de histórico de compras" class="icone">
+                <p class="texto">Histórico</p>
+            </a>
+        </div>
+    
+        <h6 class="subtitulo">Compras de Mcoins</h6>
+        
+        <ul class="lista-loja">
+    
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">1 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">Cartão de Crédito</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 5,00</p>
+                    </div>
                 </div>
-                <div class="rating-bar">
-                    <span>⭐ 4</span> <div class="bar"><div id="bar-4"></div></div> <span id="count-4">0</span>
+                
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p> 
+                    <p class="texto-itens texto-info">HH:MM</p>
                 </div>
-                <div class="rating-bar">
-                    <span>⭐ 3</span> <div class="bar"><div id="bar-3"></div></div> <span id="count-3">0</span>
+            </li>
+    
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">10 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">Cartão de Débito</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 50,00</p>
+                    </div>
                 </div>
-                <div class="rating-bar">
-                    <span>⭐ 2</span> <div class="bar"><div id="bar-2"></div></div> <span id="count-2">0</span>
+                
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p> 
+                    <p class="texto-itens texto-info">HH:MM</p>
                 </div>
-                <div class="rating-bar">
-                    <span>⭐ 1</span> <div class="bar"><div id="bar-1"></div></div> <span id="count-1">0</span>
+            </li>
+    
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">20 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">PIX</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 100,00</p>
+                    </div>
                 </div>
-            </div>
-        </div> 
+                
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p> 
+                    <p class="texto-itens texto-info">HH:MM</p>
+                </div>
+            </li>
+    
+        </ul>
     </section>
-             
+
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
-                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
+                <img src="../images/icons/icon_solicitacoes.png" alt="Minhas Solicitações">
                 <p class="texto-footer">Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
-                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
+                <img src="../images/icons/icon_add.png" alt="Criar Solicitações">
                 <p class="texto-footer">Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
-                <img src="../images/carteira.png" alt="Carteira">
+                <img src="../images/icons/icon_wallet.png" alt="Carteira">
                 <p class="texto-footer">Carteira</p>
             </a>
         </div>
     </footer>
 
     <script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../js/avaliacao.js"></script>
+    <script type="text/javascript" src="../js/loja.js"></script>
 
 </body>
 </html>

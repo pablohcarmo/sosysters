@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUPORTE</title>
+    <title>CONFIGURAÇÕES</title>
     
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../css/style-suporte.css">
+    <link rel="icon" href="../images/icons/icon_sosysters.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style-config.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
@@ -76,40 +76,48 @@
         </a>
         
     </header>
+
+    <section class="secao">
+        <div class="perfil">
+            <img class="foto-perfil" src="../images/foto perfil.png" alt="Foto do usuário">
+            <h2 class="nome-usuario">Maria Silva</h2>
+            <p class="profissao">Pintora</p>
     
-    <div class="container">
-        <h1 class="titulo">Suporte</h1>
-        <p class="descricao">
-            Está com problemas no aplicativo? Informe seu problema e descreva. 
-            Entraremos em contato o mais rápido possível.
-        </p>
+            <div class="avaliacao">
+                <span class="estrela" data-valor="1">★</span>
+                <span class="estrela" data-valor="2">★</span>
+                <span class="estrela" data-valor="3">★</span>
+                <span class="estrela" data-valor="4">★</span>
+                <span class="estrela" data-valor="5">★</span>
+            </div>
+    
+            <p class="nota">Avaliação: <span id="nota-media">0.0</span>/5</p>
+        </div>
 
-        <form action="#" method="POST">
-            <label for="nome">Nome da Solicitação</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite o título do problema..." required>
+        <div class="opcao">
+            <a>Trocar senha</a>
+            <a>Notificações</a>
+            <a>Pagamentos</a>
+            <a>Endereço</a>
+            <a>Versão 1.3</a>
+            <a href="../index.html">Sair</a>
+        </div>
 
-            <label for="descricao">Descrição da Solicitação</label>
-            <textarea id="descricao" name="descricao" placeholder="Descreva seu problema..." required></textarea>
+    </section>
 
-            <label for="foto">Anexar Imagem (opcional)</label>
-            <input type="file" id="foto" name="foto" accept="image/*">
-
-            <button type="submit" class="botao">Enviar Solicitação</button>
-        </form>
-    </div>
 
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
-                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
+                <img src="../images/icons/icon_solicitacoes.png" alt="Minhas Solicitações">
                 <p class="texto-footer">Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
-                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
+                <img src="../images/icons/icon_add.png" alt="Criar Solicitações">
                 <p class="texto-footer">Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
-                <img src="../images/carteira.png" alt="Carteira">
+                <img src="../images/icons/icon_wallet.png" alt="Carteira">
                 <p class="texto-footer">Carteira</p>
             </a>
         </div>

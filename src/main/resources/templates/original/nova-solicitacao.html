@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONFIGURAÇÕES</title>
+    <title>NOVA SOLICITAÇÃO</title>
     
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../css/style-config.css">
+    <link rel="icon" href="../images/icons/icon_sosysters.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style-nova-sol.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
@@ -76,49 +76,47 @@
         </a>
         
     </header>
-
-    <section class="secao">
-        <div class="perfil">
-            <img class="foto-perfil" src="../images/foto perfil.png" alt="Foto do usuário">
-            <h2 class="nome-usuario">Maria Silva</h2>
-            <p class="profissao">Pintora</p>
     
-            <div class="avaliacao">
-                <span class="estrela" data-valor="1">★</span>
-                <span class="estrela" data-valor="2">★</span>
-                <span class="estrela" data-valor="3">★</span>
-                <span class="estrela" data-valor="4">★</span>
-                <span class="estrela" data-valor="5">★</span>
-            </div>
     
-            <p class="nota">Avaliação: <span id="nota-media">0.0</span>/5</p>
-        </div>
+    <form id="form-solicitacao">
+        
+        <h2 class="titulo texto">Nova Solicitação</h2>
+        <p class="subtitulo texto">Selecione o tipo de serviço que você precisa:</p>
 
-        <div class="opcao">
-            <a>Trocar senha</a>
-            <a>Notificações</a>
-            <a>Pagamentos</a>
-            <a>Endereço</a>
-            <a>Versão 1.3</a>
-            <a href="../index.html">Sair</a>
-        </div>
+        <label for="servico"><p class="texto-soli texto">Serviço:</p></label>
+        <select class="select-servico" id="servico" name="servico">
+            <option value="">Selecione</option>
+            <option value="hidraulica">Hidráulica</option>
+            <option value="pintura">Pintura</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="mudanca">Mudança</option>
+            <option value="pedreira">Pedreira</option>
+            <option value="outros">Outros</option>
+        </select>
+    
+        <label for="problema"><p class="texto-soli">Descrição do trabalho:</p></label>
+        <textarea id="problema" name="problema" rows="10"></textarea>
+    
+        <label for="fotos"><p class="texto-soli texto">Adicione fotos (opcional):</p></label>
+        <input class="input-soli" type="file" id="fotos" name="fotos" multiple>
+    
+        <a class="btn-soli" href="../minhas-solicitacoes.html" type="submit">Enviar</a>
 
-    </section>
-
+    </form>
 
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
-                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
-                <p class="texto-footer">Minhas Solicitações</p>
+                <img src="../images/icons/icon_solicitacoes.png" alt="Minhas Solicitações">
+                <p>Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
-                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
-                <p class="texto-footer">Criar Solicitações</p>
+                <img src="../images/icons/icon_add.png" alt="Criar Solicitações">
+                <p>Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
-                <img src="../images/carteira.png" alt="Carteira">
-                <p class="texto-footer">Carteira</p>
+                <img src="../images/icons/icon_wallet.png" alt="Carteira">
+                <p>Carteira</p>
             </a>
         </div>
     </footer>

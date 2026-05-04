@@ -17,14 +17,11 @@ async function APICall() {
 
 APICall();
 
-//MENU HAMBURGUER
+// Hamburguer Menu
 function toggleMenu() {
     var menu = document.getElementById("menu");
-    if (menu.style.display === "block") {
-        menu.style.display = "none";
-    } else {
-        menu.style.display = "block";
-    }
+    menu.classList.toggle("active");
+    document.body.classList.toggle('menu-open');
 }
 
 //JS FEED
@@ -66,7 +63,8 @@ function prevSlide(id) {
 //JS CADASTRO
 const formulario = document.getElementById('meuFormulario');
 
-formulario.addEventListener('submit', (event) => {
+if (formulario) {
+    formulario.addEventListener('submit', (event) => {
     event.preventDefault();
     const nome = document.getElementById('nome').value;
     const sobrenome = document.getElementById('sobrenome').value;
@@ -115,4 +113,5 @@ formulario.addEventListener('submit', (event) => {
         return false;
     }    alert('Formulário válido! Dados enviados.');
     return true;
-});
+    });
+}

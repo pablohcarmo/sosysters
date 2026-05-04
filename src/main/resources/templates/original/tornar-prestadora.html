@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA SOLICITAÇÃO</title>
+    <title>CADASTRO PRESTADOR</title>
     
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="../css/style-nova-sol.css">
+    <link rel="icon" href="../images/icons/icon_sosysters.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style-tornar-prest.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
@@ -76,47 +76,51 @@
         </a>
         
     </header>
-    
-    
-    <form id="form-solicitacao">
-        
-        <h2 class="titulo texto">Nova Solicitação</h2>
-        <p class="subtitulo texto">Selecione o tipo de serviço que você precisa:</p>
 
-        <label for="servico"><p class="texto-soli texto">Serviço:</p></label>
-        <select class="select-servico" id="servico" name="servico">
+    <form id="Formulario-prestadora" class="form">
+
+        <label class="texto-form" for="profissao">Profissão:</label>
+        <select id="profissao" name="profissao" required>
             <option value="">Selecione</option>
-            <option value="hidraulica">Hidráulica</option>
-            <option value="pintura">Pintura</option>
-            <option value="limpeza">Limpeza</option>
-            <option value="mudanca">Mudança</option>
             <option value="pedreira">Pedreira</option>
+            <option value="pintora">Pintora</option>
+            <option value="empreteira">Empreteira</option>
+            <option value="servico gerais">Serviços gerais</option>
             <option value="outros">Outros</option>
         </select>
-    
-        <label for="problema"><p class="texto-soli">Descrição do trabalho:</p></label>
-        <textarea id="problema" name="problema" rows="10"></textarea>
-    
-        <label for="fotos"><p class="texto-soli texto">Adicione fotos (opcional):</p></label>
-        <input class="input-soli" type="file" id="fotos" name="fotos" multiple>
-    
-        <a class="btn-soli" href="../minhas-solicitacoes.html" type="submit">Enviar</a>
 
+        <label class="texto-form" for="formacao">Formação Acadêmica:</label>
+        <select id="formacao" name="formacao" required>
+            <option value="">Selecione</option>
+            <option value="fundamental">Ensino fundamental completo</option>
+            <option value="medio">Ensino médio completo</option>
+            <option value="superior">Ensino superior completo</option>
+            <option value="sem formacao">Não possuo nenhuma formação</option>
+            <option value="outros">Outros</option>
+        </select>
+
+        <label class="texto-form" for="qualificacoes">Qualificações:</label>
+        <input type="text" id="qualificacoes" name="qualificacoes" required>
+
+        <label class="texto-form" for="apresentacao">Carta de apresentação</label>
+        <input type="text" id="apresentacao" name="apresentacao">
+
+        <a class="btn" href="../feed.html">Enviar</a>
     </form>
 
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
-                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
-                <p>Minhas Solicitações</p>
+                <img src="../images/icons/icon_solicitacoes.png" alt="Minhas Solicitações">
+                <p class="texto-footer">Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
-                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
-                <p>Criar Solicitações</p>
+                <img src="../images/icons/icon_add.png" alt="Criar Solicitações">
+                <p class="texto-footer">Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
-                <img src="../images/carteira.png" alt="Carteira">
-                <p>Carteira</p>
+                <img src="../images/icons/icon_wallet.png" alt="Carteira">
+                <p class="texto-footer">Carteira</p>
             </a>
         </div>
     </footer>

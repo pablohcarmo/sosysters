@@ -1,4 +1,5 @@
 @import url(./geral.css);
+@import url(./style-rodape.css);
 
 .container {
     display: flex;

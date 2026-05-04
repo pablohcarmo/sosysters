@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINHAS SOLICITAÇÕES</title>
-
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/style-minhas-sol.css">
+    <title>AVALIAÇÕES</title>
+    
+    <link rel="icon" href="../images/icons/icon_sosysters.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style-avaliacoes.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
-
 <body>
 
     <header class="cabecalho">
@@ -72,84 +70,60 @@
         <a href="../feed.html">
             <img class="img img_logo" src="../images/S.O.SYSTERS_2.png" alt="Logo SOSYSTERS">
         </a>
-
+        
         <a href="../chat.html">
             <img class="chat" class="img_logo" src="../images/Chat_icon-icons 1.png" alt="Icone chat">
         </a>
-
+        
     </header>
-
-    <section class="secao texto">
-        <h2 class="titulo texto">Minhas Solicitações</h2>
-
-        <div class="button-container">
-            <button class="botao" data-filter="finalizados">Finalizados</button>
-            <button class="botao" data-filter="pendentes">Pendentes</button>
-            <button class="botao" data-filter="cancelados">Cancelados</button>
-            <button class="botao" data-filter="todos">Todos</button>
-        </div>
-
-        <ul class="lista-solicitacoes">
-            <li class="itens finalizados">
-                <div class="cabecalho-solicitacao">
-                    <p class="nome-solicitacao">Solicitação Finalizada</p>
-                    <img class="icone-status" src="../images/icone-confirmado.svg" alt="Ícone de confirmação">
+    
+    <section class="secao">
+        <div class="container">
+            <div class="profile">
+                <h2>Perfil do Usuário</h2>
+                <p class="rating">⭐ <span id="media-nota">0.0</span></p>
+                <p><strong>Total de Avaliações:</strong> <span id="total-avaliacoes">0</span></p>
+            </div>
+            <div class="ratings">
+                <h3>Distribuição das Avaliações</h3>
+                <div class="rating-bar">
+                    <span>⭐ 5</span> <div class="bar"><div id="bar-5"></div></div> <span id="count-5">0</span>
                 </div>
-                <div class="descricao-solicitacao">
-                    <h3 class="sol-titulo">Reparo de Torneira</h3>
-                    <img src="../images/torneira.jpg" alt="Imagem do serviço" class="imagem-descricao">
-                    <p class="sol-descricao">Conserto de vazamento na torneira da cozinha, incluindo substituição de peças.</p>
+                <div class="rating-bar">
+                    <span>⭐ 4</span> <div class="bar"><div id="bar-4"></div></div> <span id="count-4">0</span>
                 </div>
-            </li>
-
-            <li class="itens pendentes">
-                <div class="cabecalho-solicitacao">
-                    <p class="nome-solicitacao">Solicitação Pendente</p>
-                    <img class="icone-status" src="../images/icone-pendente.svg" alt="Ícone de pendente">
+                <div class="rating-bar">
+                    <span>⭐ 3</span> <div class="bar"><div id="bar-3"></div></div> <span id="count-3">0</span>
                 </div>
-                <div class="descricao-solicitacao">
-                    <h3 class="sol-titulo">Pintura de Quarto</h3>
-                    <img src="../images/pintura.avif" alt="Imagem do serviço" class="imagem-descricao">
-                    <p class="sol-descricao">Serviço de pintura completa com tinta lavável, cor azul claro.</p>
+                <div class="rating-bar">
+                    <span>⭐ 2</span> <div class="bar"><div id="bar-2"></div></div> <span id="count-2">0</span>
                 </div>
-            </li>
-
-            <li class="itens cancelados">
-                <div class="cabecalho-solicitacao">
-                    <p class="nome-solicitacao">Solicitação Cancelada</p>
-                    <img class="icone-status" src="../images/icone-cancelado.svg" alt="Ícone de cancelado">
+                <div class="rating-bar">
+                    <span>⭐ 1</span> <div class="bar"><div id="bar-1"></div></div> <span id="count-1">0</span>
                 </div>
-                <div class="descricao-solicitacao">
-                    <h3 class="sol-titulo">Instalação de Ventilador</h3>
-                    <img src="../images/ventilador.jpg" alt="Imagem do serviço" class="imagem-descricao">
-                    <p class="sol-descricao">Instalação elétrica suspensa de ventilador de teto com controle remoto.</p>
-                </div>
-            </li>
-        </ul>
-
+            </div>
+        </div> 
     </section>
-
+             
     <footer>
         <div class="footer-container">
             <a class="footer-item" href="../minhas-solicitacoes.html">
-                <img src="../images/solicitacoes.png" alt="Minhas Solicitações">
+                <img src="../images/icons/icon_solicitacoes.png" alt="Minhas Solicitações">
                 <p class="texto-footer">Minhas Solicitações</p>
             </a>
             <a class="footer-item" href="../nova-solicitacao.html">
-                <img src="../images/criarSolicitacoes.png" alt="Criar Solicitações">
+                <img src="../images/icons/icon_add.png" alt="Criar Solicitações">
                 <p class="texto-footer">Criar Solicitações</p>
             </a>
             <a class="footer-item" href="../carteira.html">
-                <img src="../images/carteira.png" alt="Carteira">
+                <img src="../images/icons/icon_wallet.png" alt="Carteira">
                 <p class="texto-footer">Carteira</p>
             </a>
         </div>
     </footer>
 
-
     <script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../js/minhas-solicitacoes.js"></script>
+    <script type="text/javascript" src="../js/avaliacao.js"></script>
 
 </body>
-
 </html>

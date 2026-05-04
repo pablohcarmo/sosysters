@@ -11,12 +11,12 @@ import br.com.sosysters.dto.GeneroDto;
 import br.com.sosysters.services.GeneroService;
 
 @RestController
-@RequestMapping (value = "api")
+@RequestMapping ("/api")
 public class GeneroController {
 	@Autowired
 	private GeneroService generoService;
 
-	@GetMapping (value = "generos")
+	@GetMapping ("/generos")
 	public List<GeneroDto> listGeneros(){
 		List<GeneroDto> result = generoService.listGeneros();
 		return result;

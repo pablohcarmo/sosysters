@@ -32,13 +32,17 @@ public class WebConfig implements WebMvcConfigurer {
 						"/error",
 						"/css/**",
 						"/js/**",
+						"/scripts/**",
 						"/images/**",
 						"/pages/**",
 						"/assets/**",
 						"/favicon.ico",
 						"/",
 						"/home",
-						"/index").permitAll();
+						"/index",
+						"/cadastro",
+						"/api/etnias",
+						"/api/generos").permitAll();
 					req.anyRequest().authenticated();
 				})
 

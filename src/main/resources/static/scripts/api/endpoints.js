@@ -1,5 +1,5 @@
 // API Etnias
-const urlEtnias = "http://localhost:8080/api/etnias";
+const urlEtnias = "/api/etnias";
 
 async function buscarEtnias() {
     const response = await fetch(urlEtnias)
@@ -18,7 +18,7 @@ async function buscarEtnias() {
 }
 
 // API Gêneros
-const urlGeneros = "http://localhost:8080/api/generos";
+const urlGeneros = "/api/generos";
 
 async function buscarGeneros() {
     const response = await fetch(urlGeneros)

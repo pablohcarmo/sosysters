@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/feed")
-public class FeedController {
-    
+@RequestMapping("/chats")
+public class ChatsController {
+
     @GetMapping
-    public String loadFeedPage() {
-        return "feed";
+    public String loadChatsPage() {
+        return "chats";
     }
 }

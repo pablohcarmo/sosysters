@@ -2,7 +2,6 @@ package br.com.sosysters.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,9 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
 						logout.logoutSuccessUrl("/login?logout")
 								.permitAll())
 
-				.rememberMe(rememberMe -> rememberMe.key("lembrarDeMim")
-						.alwaysRemember(true))
-				.csrf(Customizer.withDefaults())
+				.rememberMe(rememberMe -> rememberMe.key("lembrarDeMim"))
 				.build();
 	}
 

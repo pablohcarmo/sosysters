@@ -10,14 +10,18 @@ footer {
 
 .footer-container {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     background-color: var(--cor-botao);
-    padding: 10px 0;
+    padding: 10px 16px 8px;
     box-shadow: 0 -2px 0 rgba(0,0,0,0.15);
 }
 
 .footer-item {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     text-decoration: none;
     color: #111;
@@ -31,17 +35,12 @@ footer {
 }
 
 .footer-item p {
-    margin: 6px 0 0 0;
+    margin: 6px 0 0;
     font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
     text-align: center;
     color: #111;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
-
-/* pequenas telas: garantir tamanho dos icones e espaçamento */
-@media (max-width: 480px) {
-    .footer-item img { width: 28px; height: 28px; }
-    .footer-item p { font-size: 11px; }
-}
-

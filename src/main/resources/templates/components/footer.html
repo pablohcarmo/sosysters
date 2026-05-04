@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-    <footer th:fragment="footer">
-        <div class="footer-container">
-            <a class="footer-item" th:href="@{/minhas-solicitacoes}">
-                <img th:src="@{/images/solicitacoes.png}" alt="Minhas Solicitações">
-                <p class="texto-footer">Minhas Solicitações</p>
-            </a>
-            <a class="footer-item" th:href="@{/nova-solicitacao}">
-                <img th:src="@{/images/criarSolicitacoes.png}" alt="Criar Solicitações">
-                <p class="texto-footer">Criar Solicitações</p>
-            </a>
-            <a class="footer-item" th:href="@{/carteira}">
-                <img th:src="@{/images/carteira.png}" alt="Carteira">
-                <p class="texto-footer">Carteira</p>
-            </a>
-        </div>
-    </footer>
-</body>
-</html>
+<footer class="footer"
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="footer">
+    <div class="footer-container">
+        <a class="footer-item" th:href="@{/minhas-solicitacoes}">
+            <img th:src="@{/images/icons/icon_solicitacoes.png}" alt="Minhas Solicitações">
+            <p class="texto-footer">Minhas Solicitações</p>
+        </a>
 
+        <a class="footer-item" th:href="@{/nova-solicitacao}">
+            <img th:src="@{/images/icons/icon_add.png}" alt="Criar Solicitações">
+            <p class="texto-footer">Criar Solicitações</p>
+        </a>
+
+        <a class="footer-item" th:href="@{/carteira}">
+            <img th:src="@{/images/icons/icon_wallet.png}" alt="Carteira">
+            <p class="texto-footer">Carteira</p>
+        </a>
+    </div>
+
+    <!--
+        <div class="footer-container">
+            <p>2026 © Desenvolvido por SOSYSTERS | Trabalho de Conclusão de Curso.</p>
+        </div>
+    -->
+</footer>

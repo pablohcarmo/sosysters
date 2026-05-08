@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header class="cabecalho" th:fragment="header">
+        <a th:href="@{/feed}">
+            <img class="img img_logo" th:src="@{/images/logo.png}" alt="Logo Sosysters">
+        </a>
+
+        <a th:href="@{/chats}">
+            <img class="chat" th:src="@{/images/icons/icon_chats.png}" alt="Icone chat">
+        </a>
+    </header>
+</body>
+</html>

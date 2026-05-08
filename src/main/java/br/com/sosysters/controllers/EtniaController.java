@@ -11,12 +11,12 @@ import br.com.sosysters.dto.EtniaDto;
 import br.com.sosysters.services.EtniaService;
 
 @RestController
-@RequestMapping (value = "api")
+@RequestMapping ("/api")
 public class EtniaController {
 	@Autowired
 	private EtniaService etniaService;
 
-	@GetMapping (value = "etnias")
+	@GetMapping ("/etnias")
 	public List<EtniaDto> listEtnias(){
 		List<EtniaDto> result = etniaService.listEtnias();
 		return result;

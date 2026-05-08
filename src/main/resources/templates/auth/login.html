@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="icon" th:href="@{/images/css/icon_sosysters.png}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <img class="img img_logo" th:src="@{/images/S.O 1.png}" alt="Logo SOSYSTERS">
+    <h1 class="titulo">Bem vinda!</h1>
+
+    <form th:action="@{/login}" method="post" class="form-login">
+        <div th:if="${param.error}" class="mensagem-erro">
+            Email ou senha inválidos.
+        </div>
+
+        <p class="login">Login</p>
+        <input class="campo_login" type="email" name="username" placeholder="Digite seu email" required autocomplete="username">
+
+        <p class="login">Senha</p>
+        <input class="campo_login" type="password" name="password" placeholder="Digite sua senha" required autocomplete="current-password">
+
+        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+        <button class="btn_entrar ancora" type="submit">Entrar</button>
+    </form>
+
+    <a class="btn_esqueci ancora" th:href="@{/suporte}">Esqueci minha senha</a>
+    <a class="btn_criar ancora" th:href="@{/cadastro}">Criar uma conta</a>
+</div>
+<div class="form-group">
+    <label for="remember-me" class="required">Lembrar de mim:</label>
+    <input id="remember-me" name="remember-me" type="checkbox" class="form-control">
+</div>
+
+<script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}"
+      lang="pt-br">
+<head>
+    <title>Feed - Sosysters</title>
+</head>
+<body>
+    <main layout:fragment="content">
+        <div class="carrossel-container">
+            <div class="carrossel" id="carrossel1">
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel1.png}" alt="Imagem 1">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel 2.png}" alt="Imagem 2">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel 1.png}" alt="Imagem 3">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button onclick="prevSlide('carrossel1')">&#10094;</button>
+                <button onclick="nextSlide('carrossel1')">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="carrossel-container">
+            <div class="carrossel" id="carrossel2">
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel 1.png}" alt="Imagem 1">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel 2.png}" alt="Imagem 2">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+                <div class="carrossel-item">
+                    <img th:src="@{/images/carrossel 1.png}" alt="Imagem 3">
+                    <div class="carrossel-title">
+                        <p class="texto-carrossel">Direito à Educação: LGBTIfobia no ambiente escolar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button onclick="prevSlide('carrossel2')">&#10094;</button>
+                <button onclick="nextSlide('carrossel2')">&#10095;</button>
+            </div>
+        </div>
+
+        <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+    </main>
+</body>
+</html>
+

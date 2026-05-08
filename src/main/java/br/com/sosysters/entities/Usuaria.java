@@ -1,6 +1,8 @@
 package br.com.sosysters.entities;
 
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -11,10 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table (name = "Usuarias")
-public class Usuaria {
+public class Usuaria implements UserDetails {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -42,7 +47,7 @@ public class Usuaria {
 	@Column (name = "email")
 	private String emailUsuaria;
 
-	@Column (name = "senha")
+	@Column (name = "senha", length = 255)
 	private String senhaUsuaria;
 
 	@ManyToOne
@@ -52,6 +57,41 @@ public class Usuaria {
 	@ManyToOne
 	@JoinColumn (name = "id_genero")
 	private Genero generoUsuaria;
+
+	@Override
+	public Collection <? extends GrantedAuthority> getAuthorities() {
+		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senhaUsuaria;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.emailUsuaria;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
 	public Usuaria() {
 

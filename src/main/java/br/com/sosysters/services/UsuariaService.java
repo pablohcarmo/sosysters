@@ -1,9 +1,14 @@
 package br.com.sosysters.services;
 
 import java.util.List;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.sosysters.dto.NovaUsuariaDto;
 import br.com.sosysters.dto.UsuariaDto;
@@ -15,9 +20,11 @@ import br.com.sosysters.repositories.GeneroRepository;
 import br.com.sosysters.repositories.UsuariaRepository;
 
 @Service
-public class UsuariaService {
+public class UsuariaService implements UserDetailsService {
 	@Autowired
-	private UsuariaRepository usuariaRepository;
+	private final UsuariaRepository usuariaRepository;
+
+	private final PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private EtniaRepository etniaRepository;
@@ -32,6 +39,17 @@ public class UsuariaService {
 		return dto;
 	}
 
+	public UsuariaService(UsuariaRepository usuariaRepository, PasswordEncoder passwordEncoder) {
+		this.usuariaRepository = usuariaRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
+		return usuariaRepository.findByEmailUsuariaIgnoreCase(username)
+				.orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado!"));
+	}
+
 	public void cadastrarUsuaria(NovaUsuariaDto dto) {
 		Etnia etnia = etniaRepository.findById(dto.getEtniaUsuaria())
 									.orElseThrow(() -> new RuntimeException("Etnia não encontrada"));
@@ -42,11 +60,13 @@ public class UsuariaService {
 		usuaria.setNomeUsuaria(dto.getNomeUsuaria());
 		usuaria.setSobrenomeUsuaria(dto.getSobrenomeUsuaria());
 		usuaria.setNomeSocialUsuaria(dto.getNomeSocialUsuaria());
-		usuaria.setDtNascimentoUsuaria(dto.getDtNascimentoUsuaria());
+		if (dto.getDtNascimentoUsuaria() != null) {
+			usuaria.setDtNascimentoUsuaria(Date.valueOf(dto.getDtNascimentoUsuaria()));
+		}
 		usuaria.setRgUsuaria(dto.getRgUsuaria());
 		usuaria.setCpfUsuaria(dto.getCpfUsuaria());
 		usuaria.setEmailUsuaria(dto.getEmailUsuaria());
-		usuaria.setSenhaUsuaria(dto.getSenhaUsuaria());
+		usuaria.setSenhaUsuaria(passwordEncoder.encode(dto.getSenhaUsuaria()));
 		usuaria.setEtniaUsuaria(etnia);
 		usuaria.setGeneroUsuaria(genero);
 		usuariaRepository.save(usuaria);

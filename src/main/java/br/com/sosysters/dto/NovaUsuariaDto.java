@@ -1,12 +1,12 @@
 package br.com.sosysters.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class NovaUsuariaDto {
 	private String nomeUsuaria;
 	private String sobrenomeUsuaria;
 	private String nomeSocialUsuaria;
-	private Date dtNascimentoUsuaria;
+	private LocalDate dtNascimentoUsuaria;
 	private String rgUsuaria;
 	private String cpfUsuaria;
 	private String emailUsuaria;
@@ -17,7 +17,7 @@ public class NovaUsuariaDto {
 	public NovaUsuariaDto() {
 	}
 
-	public NovaUsuariaDto(String nomeUsuaria, String sobrenomeUsuaria, String nomeSocialUsuaria, Date dtNascimentoUsuaria,
+	public NovaUsuariaDto(String nomeUsuaria, String sobrenomeUsuaria, String nomeSocialUsuaria, LocalDate dtNascimentoUsuaria,
 			String rgUsuaria, String cpfUsuaria, String emailUsuaria, String senhaUsuaria, Long etniaUsuaria, Long generoUsuaria) {
 		this.nomeUsuaria = nomeUsuaria;
 		this.sobrenomeUsuaria = sobrenomeUsuaria;
@@ -55,11 +55,11 @@ public class NovaUsuariaDto {
 		this.nomeSocialUsuaria = nomeSocialUsuaria;
 	}
 
-	public Date getDtNascimentoUsuaria() {
+	public LocalDate getDtNascimentoUsuaria() {
 		return dtNascimentoUsuaria;
 	}
 
-	public void setDtNascimentoUsuaria(Date dtNascimentoUsuaria) {
+	public void setDtNascimentoUsuaria(LocalDate dtNascimentoUsuaria) {
 		this.dtNascimentoUsuaria = dtNascimentoUsuaria;
 	}
 

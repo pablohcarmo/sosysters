@@ -10,17 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sosysters.dto.NovaUsuariaDto;
 import br.com.sosysters.services.UsuariaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping (value = "usuarias")
+@RequestMapping ("/usuarias")
 public class UsuariaController {
 	@Autowired
 	private UsuariaService usuariaService;
 
+	private static final Logger logger = LoggerFactory.getLogger(UsuariaController.class);
+
 
 	@PostMapping
-	public ResponseEntity<Void> cadastrarUsuaria(@RequestBody NovaUsuariaDto dto) {
-		usuariaService.cadastrarUsuaria(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+	public ResponseEntity<?> cadastrarUsuaria(@RequestBody NovaUsuariaDto dto) {
+		logger.info("Recebendo cadastro de usuária: {} - {}", dto.getNomeUsuaria(), dto.getEmailUsuaria());
+		try {
+			usuariaService.cadastrarUsuaria(dto);
+			return ResponseEntity.status(HttpStatus.CREATED).build();
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar usuária", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao cadastrar: " + e.getMessage());
+		}
 	}
 }

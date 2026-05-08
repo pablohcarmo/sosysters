@@ -47,7 +47,7 @@ public class Usuaria implements UserDetails {
 	@Column (name = "email")
 	private String emailUsuaria;
 
-	@Column (name = "senha")
+	@Column (name = "senha", length = 255)
 	private String senhaUsuaria;
 
 	@ManyToOne

@@ -1,48 +1,107 @@
 @import url(./geral.css);
 
-form {
+/* ===== RESET ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== BODY ===== */
+body {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    
+    background-color: #f5f5f5;
+    padding: 15px;
 }
 
-img {
-    width: 20%;
-    margin-top: 10%;
+/* ===== FORM ===== */
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
 }
 
-label {
+/* ===== LOGO ===== */
+form img {
     display: block;
-    margin-bottom: 5px;
+    margin: 0 auto 20px auto;
+    max-width: 120px;
 }
 
-form input, form select {
-    width: 70%;
-    padding: .5rem;
-}
-
-.btn {
-    background-color: var(--cor-botao);
-    padding: 10px 100px;
-    border-radius: 5px;
-    margin-top: 5%;
-    text-decoration: none;
-    color: #000000;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 10%;
-}
-
-.btn:hover {
-    cursor: pointer;
-    background-color: var(--cor-hover);
-}
-
+/* ===== LABEL ===== */
 .texto-form {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    padding-top: 4%;
+    margin-top: 12px;
+}
+
+/* ===== INPUTS ===== */
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* ===== GRID ===== */
+.linha {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.linha div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== MOBILE (PADRÃO) ===== */
+.duas-colunas,
+.tres-colunas {
+    grid-template-columns: 1fr;
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+    .duas-colunas {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+    form {
+        max-width: 800px;
+    }
+
+    .duas-colunas {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tres-colunas {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* ===== BOTÃO ===== */
+.btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: var(--cor-botao);
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--cor-hover);
 }

@@ -46,7 +46,8 @@ public class WebConfig implements WebMvcConfigurer {
 						"/index",
 						"/cadastro",
 						"/api/etnias",
-						"/api/generos").permitAll();
+						"/api/generos",
+						"/verify-email/**").permitAll();
 					req.anyRequest().authenticated();
 				})
 

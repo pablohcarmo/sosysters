@@ -1,10 +1,19 @@
 package br.com.sosysters.controllers;
 
+import br.com.sosysters.services.UsuariaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 
 @Controller
 public class LoginController {
+    private UsuariaService usuariaService;
+
+    public LoginController(UsuariaService usuariaService) {
+        this.usuariaService = usuariaService;
+    }
+
     @GetMapping("/login")
     public String loadListingPage() {
         return "auth/login";
@@ -13,5 +22,18 @@ public class LoginController {
     @GetMapping("/logout")
     public String loadLogoutPage() {
         return "auth/logout";
+    }
+
+    @GetMapping("/verify-email/{uuid}")
+    public String loadVerifyEmailPage(@PathVariable("uuid") String uuid, Model model) {
+        String resultado = usuariaService.verificaToken(uuid);
+        model.addAttribute("message", resultado);
+        // Retorna uma página que mostra a mensagem e redireciona o usuário para o login
+        return "auth/verify-result";
+    }
+
+    @GetMapping("/access-denied")
+    public String loadAccessDeniedPage() {
+        return "auth/access-denied";
     }
 }

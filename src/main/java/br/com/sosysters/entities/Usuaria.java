@@ -58,6 +58,9 @@ public class Usuaria implements UserDetails {
 	@JoinColumn (name = "id_genero")
 	private Genero generoUsuaria;
 
+	@Column (name = "usuaria_verificada")
+	private boolean usuariaVerificado;
+
 	@Override
 	public Collection <? extends GrantedAuthority> getAuthorities() {
 		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
@@ -199,6 +202,14 @@ public class Usuaria implements UserDetails {
 
 	public void setGeneroUsuaria(Genero generoUsuaria) {
 	    this.generoUsuaria = generoUsuaria;
+	}
+
+	public boolean isUsuariaVerificado() {
+		return usuariaVerificado;
+	}
+
+	public void setUsuariaVerificado(boolean usuariaVerificado) {
+		this.usuariaVerificado = usuariaVerificado;
 	}
 
 	@Override

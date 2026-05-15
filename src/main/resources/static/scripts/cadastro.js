@@ -179,9 +179,13 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const dados = coletarDadosFormulario();
             await cadastrarUsuario(dados);
-            alert('Usuária cadastrada com sucesso!');
-            formulario.reset();
-            document.getElementById("cpf").style.borderColor = "";
+            // Mostrar diálogo informando que o link de confirmação foi enviado
+            if (confirm('Um link de confirmação foi enviado para o seu e-mail. AO clicar em OK, você será redirecionado para o login.')) {
+                window.location.href = '/login';
+            } else {
+                formulario.reset();
+                document.getElementById("cpf").style.borderColor = "";
+            }
         } catch (error) {
             alert('Erro no cadastro: ' + error.message);
         }

@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.sosysters.dto.NovaUsuariaDto;
 import br.com.sosysters.dto.UsuariaDto;
+import br.com.sosysters.dto.TrocarSenhaDto;
+import br.com.sosysters.exceptions.InvalidCurrentPasswordException;
+import org.springframework.transaction.annotation.Transactional;
 import br.com.sosysters.entities.Etnia;
 import br.com.sosysters.entities.Genero;
 import br.com.sosysters.entities.Usuaria;
@@ -133,5 +136,31 @@ public class UsuariaService implements UserDetailsService {
 		} catch (IllegalArgumentException e) {
 			return "Formato de UUID inválido";
 		}
+	}
+
+	@Transactional
+	public void trocarSenha(String email, TrocarSenhaDto dto) {
+		var opt = usuariaRepository.findByEmailUsuariaIgnoreCase(email);
+		if (opt.isEmpty()) {
+			throw new UsernameNotFoundException("Usuário não encontrado");
+		}
+
+		Usuaria usuaria = opt.get();
+
+		if (dto.getCurrentPassword() == null || dto.getCurrentPassword().isBlank() ||
+				dto.getNewPassword() == null || dto.getNewPassword().isBlank()) {
+			throw new IllegalArgumentException("Preencha a senha atual e a nova senha.");
+		}
+
+		if (!passwordEncoder.matches(dto.getCurrentPassword(), usuaria.getSenhaUsuaria())) {
+			throw new InvalidCurrentPasswordException("Senha atual incorreta.");
+		}
+
+		if (passwordEncoder.matches(dto.getNewPassword(), usuaria.getSenhaUsuaria())) {
+			throw new IllegalArgumentException("A nova senha deve ser diferente da atual.");
+		}
+
+		usuaria.setSenhaUsuaria(passwordEncoder.encode(dto.getNewPassword()));
+		usuariaRepository.save(usuaria);
 	}
 }

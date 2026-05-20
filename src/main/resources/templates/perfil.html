@@ -13,11 +13,12 @@
 </head>
 <body>
     <main layout:fragment="content">
+        <p class="mensagem-flash" th:if="${mensagem}" th:text="${mensagem}"></p>
         <section class="secao">
             <div class="perfil">
                 <img class="foto-perfil" th:src="@{/images/foto perfil.png}" alt="Foto do usuário">
-                <h2 class="nome-usuario" th:text="${#authentication.principal.nomeUsuaria} + ' ' + ${#authentication.principal.sobrenomeUsuaria}">Maria Silva</h2>
-                <p class="profissao">Pintora</p>
+                <h2 class="nome-usuario" th:text="${cadastro.nomeUsuaria} + ' ' + ${cadastro.sobrenomeUsuaria}">Maria Silva</h2>
+                <p class="profissao" th:text="${cadastro.nomeSocialUsuaria != null and !#strings.isEmpty(cadastro.nomeSocialUsuaria) ? cadastro.nomeSocialUsuaria : 'Pintora'}">Pintora</p>
 
                 <div class="avaliacao">
                     <span class="estrela" data-valor="1">★</span>
@@ -32,18 +33,15 @@
         </section>
 
         <section>
-            <!-- Opções de configuração (transferidas de config.html) -->
                 <div class="opcao">
-                <a th:href="@{/trocar-senha}">Trocar senha</a>
+                <a th:href="@{/trocar-senha}">Alterar senha</a>
                 <a href="#">Notificações</a>
                 <a href="#">Pagamentos</a>
-                <a href="#">Endereço</a>
-                <a>Versão 1.3</a>
+                <a th:href="@{/meu-cadastro}">Meu Cadastro</a>
                 <a th:href="@{/}">Sair</a>
             </div>
         </section>
 
-        <!-- script específico da página -->
         <script type="text/javascript" th:src="@{/scripts/perfil.js}"></script>
     </main>
 </body>

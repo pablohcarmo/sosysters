@@ -95,6 +95,17 @@
     font-weight: bold;
 }
 
+.mensagem-flash {
+    width: min(90vw, 600px);
+    margin: 0 auto 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(0, 105, 92, 0.12);
+    color: #00695c;
+    font-weight: 700;
+    text-align: center;
+}
+
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
   .perfil {

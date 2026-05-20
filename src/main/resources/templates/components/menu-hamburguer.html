@@ -8,8 +8,8 @@
         <a class="btn-menu" th:href="@{/perfil}">
             <img class="foto-perfil" th:src="@{/images/foto perfil.png}" alt="Foto perfil">
         </a>
-        <a class="nome-perfil" th:href="@{/perfil}">
-            <p class="texto-menu">Olá, <span th:text="${#authentication.principal.nomeUsuaria}"></span>!</p>
+        <a class="nome-perfil">
+            <p class="texto-menu">Olá, <span th:text="${cadastro != null ? cadastro.nomeUsuaria : #authentication.principal.nomeUsuaria}"></span>!</p>
         </a>
         <a th:href="@{/feed}">
             <img th:src="@{/images/icone-home.svg}" alt="ícone de casa">

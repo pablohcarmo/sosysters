@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>404 - Página não encontrada</title>
+    <th:block layout:fragment="head"></th:block>
+</head>
+<body>
+    <main layout:fragment="content">
+        <section class="container-section" style="text-align:center;padding:4rem 1rem;">
+            <h1 style="font-size:2.2rem;margin-bottom:1rem;">404 — Página não encontrada</h1>
+            <p style="margin-bottom:2rem;">A página que você tentou acessar ainda não existe ou está em construção.</p>
+
+            <div>
+                <a sec:authorize="isAuthenticated()" th:href="@{/feed}" class="btn btn-primary" style="margin-right:1rem;">Voltar ao feed</a>
+                <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary" style="margin-right:1rem;">Entrar / Fazer login</a>
+                <a th:href="@{/}" class="btn btn-secondary">Ir para a página inicial</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+

@@ -382,7 +382,7 @@ public class UsuariaService implements UserDetailsService {
 			if (Instant.now().isAfter(usuariaVerificacao.getDataExpiracao())) {
 				// Token expirado: remove do banco e informa
 				usuariaConfirmacaoTokenRepository.delete(usuariaVerificacao);
-				return "Link expirado. Por favor, solicite um novo link de verificação!";
+				return "Link expirado!";
 			}
 
 			// Marca a usuária como verificada e persiste
@@ -396,6 +396,41 @@ public class UsuariaService implements UserDetailsService {
 			return "Email verificado com sucesso! Sua conta está ativada.";
 		} catch (IllegalArgumentException e) {
 			return "Formato de UUID inválido";
+		}
+	}
+
+	@Transactional
+	public String reenviarEmailConfirmacao(String emailUsuaria) {
+		if (emailUsuaria == null || emailUsuaria.isBlank()) {
+			return "Informe um email válido para reenviar a confirmação.";
+		}
+
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(emailUsuaria)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if (usuaria.isUsuariaVerificado()) {
+			return "Esta conta já foi confirmada. Você pode fazer login normalmente.";
+		}
+
+		UsuariaConfirmacaoToken token = usuariaConfirmacaoTokenRepository.findByUsuaria(usuaria)
+				.orElseGet(UsuariaConfirmacaoToken::new);
+		token.setUsuaria(usuaria);
+		token.setUuid(UUID.randomUUID());
+		token.setDataExpiracao(Instant.now().plusSeconds(900));
+		usuariaConfirmacaoTokenRepository.save(token);
+
+		String link = "http://localhost:8080/verify-email/" + token.getUuid();
+		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n"
+				+ "Seu link anterior expirou ou você solicitou um novo link de confirmação.\n"
+				+ "Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n"
+				+ "Este link é válido por 15 minutos.\n\n"
+				+ "Atenciosamente,\nA equipe do SOSysters";
+
+		try {
+			emailService.enviarEmail(usuaria.getEmailUsuaria(), "Reenvio de confirmação SOSysters", corpo);
+			return "Email de confirmação reenviado. Verifique sua caixa de entrada.";
+		} catch (Exception e) {
+			return "Não foi possível reenviar o email de confirmação no momento.";
 		}
 	}
 

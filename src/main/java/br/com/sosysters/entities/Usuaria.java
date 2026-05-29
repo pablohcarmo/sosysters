@@ -103,7 +103,7 @@ public class Usuaria implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return usuariaVerificado;
 	}
 
 	public Usuaria() {

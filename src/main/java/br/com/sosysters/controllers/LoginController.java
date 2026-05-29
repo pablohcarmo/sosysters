@@ -4,7 +4,10 @@ import br.com.sosysters.services.UsuariaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -17,6 +20,12 @@ public class LoginController {
     @GetMapping("/login")
     public String loadListingPage() {
         return "auth/login";
+    }
+
+    @GetMapping("/auth/login")
+    public String redirectAuthLogin(@RequestParam(name = "continue", required = false) String continueParam) {
+        // Redireciona /auth/login para a rota correta /login para evitar loops quando links antigos
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
@@ -36,4 +45,12 @@ public class LoginController {
     public String loadAccessDeniedPage() {
         return "auth/access-denied";
     }
+
+  @PostMapping("/resend-confirmation")
+  public String reenviarConfirmacao(@RequestParam("email") String email,
+                RedirectAttributes redirectAttributes) {
+    String mensagem = usuariaService.reenviarEmailConfirmacao(email);
+    redirectAttributes.addFlashAttribute("message", mensagem);
+    return "redirect:/login";
+  }
 }

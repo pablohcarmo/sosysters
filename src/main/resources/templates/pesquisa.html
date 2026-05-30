@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Pesquisa</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-pesquisa.css}">
+    </th:block>
+    </head>
+
+<body>
+    <main layout:fragment="content">
+        <div class="container">
+            <h1 class="titulo">Lista de Serviços</h1>
+
+            <!-- Campo de Pesquisa -->
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Pesquise por um serviço...">
+            </div>
+
+            <!-- Botões de Filtros -->
+            <div class="filter-container">
+                <button class="filter-btn" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="construção">Construção</button>
+                <button class="filter-btn" data-filter="pintura">Pintura</button>
+                <button class="filter-btn" data-filter="limpeza">Limpeza</button>
+            </div>
+
+            <!-- Lista de Serviços -->
+            <ul class="service-list" id="serviceList">
+                <li class="service-item" data-category="construção">
+                    <img th:src="@{/images/pedreira.webp}" alt="Pedreira">
+                    <div class="caixa">
+                        <h3>Pedreira</h3>
+                        <p>Serviço de construção para uma casa.</p>
+                    </div>
+                </li>
+                <li class="service-item" data-category="pintura">
+                    <img th:src="@{/images/pintura.avif}" alt="Pintora">
+                    <div class="caixa">
+                        <h3>Pintora</h3>
+                        <p>Pintura profissional para residência de 250m².</p>
+                    </div>
+                </li>
+                <li class="service-item" data-category="limpeza">
+                    <img th:src="@{/images/serviços gerais.jpg}" alt="Serviços Gerais">
+                    <div class="caixa">
+                        <h3>Serviços Gerais</h3>
+                        <p>Limpeza e manutenção em geral para um ambiente de 100m².</p>
+                    </div>
+                </li>
+                <li class="service-item" data-category="construção">
+                    <img th:src="@{/images/empreiteira.jpg}" alt="Empreteira">
+                    <div class="caixa">
+                        <h3>Empreteira</h3>
+                        <p>Especialistas em grandes obras e projetos de engenharia.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <th:block layout:fragment="scripts">
+        <script type="text/javascript" th:src="@{/scripts/pesquisa.js}"></script>
+    </th:block>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Carteira</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-carteira.css}">
+    </th:block>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <section class="secao">
+        <h1 class="titulo">Carteira</h1>
+
+        <div class="container">
+            <a class="btn btn-atual" th:href="@{/carteira}">
+                <img th:src="@{/images/icone-saldo.svg}" alt="Icone de saldo" class="icone">
+                <p class="texto">Saldo</p>
+            </a>
+            <a class="btn" th:href="@{/loja}">
+                <img th:src="@{/images/icone-loja.svg}" alt="icone de loja" class="icone">
+                <p class="texto">Loja virtual</p>
+            </a>
+            <a class="btn" th:href="@{/historico}">
+                <img th:src="@{/images/icone-historico.svg}" alt="Icone de histórico de compras" class="icone">
+                <p class="texto">Histórico</p>
+            </a>
+        </div>
+
+        <h6 class="subtitulo">Saldo</h6>
+        <ul class="lista">
+            <li class="itens">
+                <p class="texto-itens">Crédito em dinheiro</p>
+                <p id="valor-dinheiro" class="valor-dinheiro">R$ 110,00</p>
+                <button id="botao1" class="btn-mostrar">
+                    <img th:src="@{/images/icone-esconder.svg}" alt="icone de olho">
+                </button>
+            </li>
+            <li class="itens">
+                <p class="texto-itens">Crédito em Mcoins</p>
+                <p id="valor-mcoins" class="valor-mcoins">20 un</p>
+                <button id="botao2" class="btn-mostrar">
+                    <img th:src="@{/images/icone-esconder.svg}" alt="icone de olho">
+                </button>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

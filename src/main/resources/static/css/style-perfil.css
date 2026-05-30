@@ -22,7 +22,6 @@
   padding: 12px;
   border-radius: 4px;
   color: black;
-  font-size: 16px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: background 0.3s;
@@ -48,7 +47,7 @@
     background: var(--cor-botao);
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 50vw;
     margin-bottom: 10px;
@@ -64,15 +63,76 @@
     margin-bottom: 5px;
 }
 
+.foto-perfil-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.foto-perfil-label .foto-perfil {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.foto-perfil-label:hover .foto-perfil {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.25);
+    opacity: 0.92;
+}
+
+.foto-perfil-label {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-verified {
+    position: absolute;
+    right: -6px;
+    bottom: -4px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    background: #fff;
+    padding: 2px;
+    z-index: 10;
+}
+
+.upload-foto-form {
+    margin-bottom: 8px;
+}
+
 .nome-usuario {
     font-size: 22px;
     margin: 5px 0;
 }
 
+.profissao-link {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 0 -8px;
+}
+
+.profissao-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
 .profissao {
     font-size: 16px;
     color: #666;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.profissao-link:hover .profissao {
+    color: #333;
+    font-weight: 500;
 }
 
 .avaliacao {

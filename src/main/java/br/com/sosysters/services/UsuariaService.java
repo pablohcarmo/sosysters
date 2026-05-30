@@ -1,12 +1,16 @@
 package br.com.sosysters.services;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.sql.Date;
 import java.util.UUID;
+import java.util.Optional;
 
+import br.com.sosysters.entities.Foto;
 import br.com.sosysters.entities.UsuariaConfirmacaoToken;
 import br.com.sosysters.repositories.UsuariaConfirmacaoTokenRepository;
+import br.com.sosysters.repositories.FotoRepository;
 import br.com.sosysters.repositories.CelularRepository;
 import br.com.sosysters.repositories.EnderecoRepository;
 import br.com.sosysters.repositories.BairroRepository;
@@ -75,6 +79,9 @@ public class UsuariaService implements UserDetailsService {
 
 	@Autowired
 	private CelularRepository celularRepository;
+
+	@Autowired
+	private FotoRepository fotoRepository;
 
 	public List<UsuariaDto> findAll() {
 		List<Usuaria> result = usuariaRepository.findAll();
@@ -368,6 +375,28 @@ public class UsuariaService implements UserDetailsService {
 		return "(" + dddFormatado + ") " + prefixo + "-" + sufixo;
 	}
 
+	@Transactional(readOnly = true)
+	public Optional<Foto> carregarFotoPerfil(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		return fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria);
+	}
+
+	@Transactional
+	public void salvarFotoPerfil(String email, byte[] imagemPerfil) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if (imagemPerfil == null || imagemPerfil.length == 0) {
+			throw new IllegalArgumentException("A imagem enviada está vazia.");
+		}
+
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).orElseGet(Foto::new);
+		foto.setUsuaria(usuaria);
+		foto.setImgPerfil(imagemPerfil);
+		fotoRepository.save(foto);
+	}
+
 	public String verificaToken(String uuid) {
 		try {
 			// Busca o token pelo UUID
@@ -458,5 +487,58 @@ public class UsuariaService implements UserDetailsService {
 
 		usuaria.setSenhaUsuaria(passwordEncoder.encode(dto.getNewPassword()));
 		usuariaRepository.save(usuaria);
+	}
+
+	@Transactional
+	public void salvarFotosVerificacao(String email, byte[] selfie, byte[] documento) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if ((selfie == null || selfie.length == 0) || (documento == null || documento.length == 0)) {
+			throw new IllegalArgumentException("Ambas as imagens (selfie e documento) são obrigatórias.");
+		}
+
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).orElseGet(Foto::new);
+		foto.setUsuaria(usuaria);
+		foto.setSelfieVerificacao(selfie);
+		foto.setDocumentoVerificacao(documento);
+		foto.setIdentidadeVerificada(false);
+		foto.setDataVerificacao(LocalDateTime.now());
+		fotoRepository.save(foto);
+	}
+
+	@Transactional(readOnly = true)
+	public boolean verificarIdentidadeVerificada(String email) {
+		try {
+			Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+					.orElse(null);
+			if (usuaria == null) {
+				return false;
+			}
+			Optional<Foto> foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria);
+			return foto.map(Foto::isIdentidadeVerificada).orElse(false);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Transactional
+	public void aprovarIdentidade(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria)
+				.orElseThrow(() -> new IllegalStateException("Nenhum envio de verificação encontrado."));
+		foto.setIdentidadeVerificada(true);
+		fotoRepository.save(foto);
+	}
+
+	@Transactional
+	public void reprovarIdentidade(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).ifPresent(foto -> {
+			foto.setIdentidadeVerificada(false);
+			fotoRepository.save(foto);
+		});
 	}
 }

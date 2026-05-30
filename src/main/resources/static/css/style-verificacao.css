@@ -1,0 +1,196 @@
+/* Estilos para a seção de verificação de identidade */
+
+.icon-verified {
+    display: inline-block;
+    color: #27ae60;
+    font-size: 1.5rem;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(39, 174, 96, 0.3);
+}
+
+.link-verificacao {
+    cursor: pointer !important;
+    text-decoration: underline !important;
+}
+
+/* Modal de Verificação */
+.modal-verificacao {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-verificacao {
+    background-color: #fefefe;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #000;
+}
+
+.modal-content-verificacao h3 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.info-verificacao {
+    text-align: center;
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Formulário de Verificação */
+.form-verificacao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-upload {
+    cursor: pointer;
+}
+
+.upload-box {
+    border: 2px dashed #27ae60;
+    border-radius: 8px;
+    padding: 30px 20px;
+    text-align: center;
+    background-color: #f8fdf7;
+    transition: all 0.3s ease;
+}
+
+.upload-box:hover {
+    background-color: #e8f5e9;
+    border-color: #1e8449;
+}
+
+.emoji-upload {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.upload-box p {
+    margin: 8px 0;
+    font-weight: 600;
+    color: #27ae60;
+}
+
+.upload-box small {
+    display: block;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-container img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+/* Botões */
+.botoes-verificacao {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.botao-enviar,
+.botao-cancelar {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.botao-enviar {
+    background-color: #27ae60;
+    color: white;
+}
+
+.botao-enviar:hover {
+    background-color: #1e8449;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.botao-cancelar {
+    background-color: #ecf0f1;
+    color: #333;
+}
+
+.botao-cancelar:hover {
+    background-color: #d5dbdb;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .modal-content-verificacao {
+        padding: 20px;
+        max-width: 95%;
+    }
+
+    .emoji-upload {
+        font-size: 2rem;
+    }
+
+    .botoes-verificacao {
+        flex-direction: column;
+    }
+
+    .botao-enviar,
+    .botao-cancelar {
+        width: 100%;
+    }
+}
+

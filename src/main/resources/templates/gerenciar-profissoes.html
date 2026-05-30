@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{components/layout}">
+
+<head>
+	<title>Gerenciar Profissões</title>
+	<th:block layout:fragment="head">
+		<link rel="stylesheet" th:href="@{/css/style-profissoes.css}">
+	</th:block>
+</head>
+
+<body>
+	<main layout:fragment="content">
+		<p class="mensagem-flash" th:if="${mensagem}" th:text="${mensagem}"></p>
+
+		<section class="secao-profissoes">
+			<div class="card-profissoes">
+				<h1>Gerenciar Profissão</h1>
+				<p class="descricao">Selecione a profissão que você oferece:</p>
+
+				<form th:action="@{/profissoes/salvar}" method="post" class="form-profissoes">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+					<div class="lista-profissoes">
+						<div th:each="profissao : ${todasProfissoes}" class="item-profissao">
+							<input
+								type="radio"
+								name="profissao"
+								th:id="'prof_' + ${profissao.idProfissao}"
+								th:value="${profissao.idProfissao}"
+								class="radio-profissao"
+								th:checked="${profissoesEscolhidas.contains(profissao.idProfissao)}">
+							<label th:for="'prof_' + ${profissao.idProfissao}" th:text="${profissao.nomeProfissao}"></label>
+						</div>
+					</div>
+
+					<div class="botoes-acao">
+						<button type="submit" class="botao-salvar">Salvar Profissão</button>
+						<a th:href="@{/perfil}" class="botao-cancelar">Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+</body>
+
+</html>
+

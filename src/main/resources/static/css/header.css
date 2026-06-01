@@ -164,3 +164,55 @@ body.menu-open .hamburger {
     margin: 0;
     font-size: 16px;
 }
+
+@media (max-width: 768px) {
+    .hamburger {
+        width: 26px;
+        height: 26px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .hamburger div {
+        height: 3px;
+        margin: 5px 0;
+    }
+
+    .menu {
+        width: 190px;
+        padding: 6px 8px 84px;
+    }
+
+    body.menu-open .hamburger {
+        transform: translateX(158px);
+    }
+
+    .menu a,
+    .logout-form {
+        padding: 6px 8px;
+    }
+
+    .menu a img,
+    .logout-button img {
+        width: 28px;
+        margin-right: 6px;
+    }
+
+    .menu a.btn-menu img.foto-perfil,
+    .foto-perfil {
+        width: 52px;
+        height: 52px;
+    }
+
+    .menu a p,
+    .logout-button span {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) and (max-height: 700px) {
+    .menu a,
+    .logout-form {
+        padding: 4px 8px;
+    }
+}

@@ -44,3 +44,8 @@ footer {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
+
+body {
+    /* Reserva espaço para o footer fixo não cobrir conteúdo no fim da tela */
+    padding-bottom: 72px;
+}

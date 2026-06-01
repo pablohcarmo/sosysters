@@ -168,38 +168,43 @@
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
+  .secao {
+    padding-top: 0.25rem;
+  }
+
   .perfil {
-    width: 78vw;
-    padding: 16px;
+    width: 86vw;
+    padding: 12px;
+    transform: translateY(-6px);
   }
 
   .foto-perfil {
-    width: 80px;
-    height: 80px;
+    width: 68px;
+    height: 68px;
   }
 
   .nome-usuario {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
 
   .profissao,
   .nota {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .avaliacao {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .opcao {
-    gap: 16px;
-    margin-top: 6px; /* ajuste menor em mobile para evitar sobreposição com o conteúdo do rodapé */
+    gap: 10px;
+    margin-top: 2px;
   }
 
   .opcao a {
-    width: 80vw;
-    font-size: 1rem;
-    padding: 10px;
+    width: 86vw;
+    font-size: 0.95rem;
+    padding: 9px;
   }
 
   header .img_logo {
@@ -210,5 +215,16 @@
   .menu-container {
     position: relative;
     z-index: 999;
+  }
+}
+
+@media (max-width: 420px) {
+  .perfil,
+  .opcao a {
+    width: 90vw;
+  }
+
+  .avaliacao {
+    font-size: 20px;
   }
 }

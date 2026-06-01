@@ -15,6 +15,7 @@
     <main layout:fragment="content">
         <div class="container">
             <h1 class="titulo">Lista de Serviços</h1>
+            <p th:if="${mensagem}" th:text="${mensagem}"></p>
 
             <!-- Campo de Pesquisa -->
             <div class="search-container">
@@ -24,39 +25,23 @@
             <!-- Botões de Filtros -->
             <div class="filter-container">
                 <button class="filter-btn" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="construção">Construção</button>
-                <button class="filter-btn" data-filter="pintura">Pintura</button>
-                <button class="filter-btn" data-filter="limpeza">Limpeza</button>
+                <button class="filter-btn"
+                        th:each="categoria : ${categoriasPesquisa}"
+                        th:if="${categoria != 'all'}"
+                        th:attr="data-filter=${categoria}"
+                        th:text="${#strings.capitalize(categoria)}">
+                </button>
             </div>
 
             <!-- Lista de Serviços -->
             <ul class="service-list" id="serviceList">
-                <li class="service-item" data-category="construção">
-                    <img th:src="@{/images/pedreira.webp}" alt="Pedreira">
+                <li class="service-item"
+                    th:each="item : ${solicitacoesPesquisa}"
+                    th:attr="data-category=${item.categoria}">
+                    <img th:src="@{${item.imagem}}" th:alt="${item.titulo}">
                     <div class="caixa">
-                        <h3>Pedreira</h3>
-                        <p>Serviço de construção para uma casa.</p>
-                    </div>
-                </li>
-                <li class="service-item" data-category="pintura">
-                    <img th:src="@{/images/pintura.avif}" alt="Pintora">
-                    <div class="caixa">
-                        <h3>Pintora</h3>
-                        <p>Pintura profissional para residência de 250m².</p>
-                    </div>
-                </li>
-                <li class="service-item" data-category="limpeza">
-                    <img th:src="@{/images/serviços gerais.jpg}" alt="Serviços Gerais">
-                    <div class="caixa">
-                        <h3>Serviços Gerais</h3>
-                        <p>Limpeza e manutenção em geral para um ambiente de 100m².</p>
-                    </div>
-                </li>
-                <li class="service-item" data-category="construção">
-                    <img th:src="@{/images/empreiteira.jpg}" alt="Empreteira">
-                    <div class="caixa">
-                        <h3>Empreteira</h3>
-                        <p>Especialistas em grandes obras e projetos de engenharia.</p>
+                        <h3 th:text="${item.titulo}">Servico</h3>
+                        <p th:text="${item.descricao}">Descricao do servico.</p>
                     </div>
                 </li>
             </ul>

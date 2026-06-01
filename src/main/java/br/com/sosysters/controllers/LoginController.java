@@ -19,6 +19,12 @@ public class LoginController {
         return "auth/login";
     }
 
+    @GetMapping("/auth/login")
+    public String redirectAuthLogin(@RequestParam(name = "continue", required = false) String continueParam) {
+        // Redireciona /auth/login para a rota correta /login para evitar loops quando links antigos
+        return "redirect:/login";
+    }
+
     @GetMapping("/logout")
     public String loadLogoutPage() {
         return "auth/logout";

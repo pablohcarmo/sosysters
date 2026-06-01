@@ -15,8 +15,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.sosysters.dto.NovaUsuariaDto;
+import br.com.sosysters.dto.MeuCadastroDto;
 import br.com.sosysters.dto.UsuariaDto;
+import br.com.sosysters.dto.TrocarSenhaDto;
+import br.com.sosysters.exceptions.InvalidCurrentPasswordException;
+import org.springframework.transaction.annotation.Transactional;
 import br.com.sosysters.entities.Etnia;
+import br.com.sosysters.entities.Estado;
+import br.com.sosysters.entities.Cidade;
+import br.com.sosysters.entities.Bairro;
+import br.com.sosysters.entities.Logradouro;
+import br.com.sosysters.entities.Endereco;
+import br.com.sosysters.entities.Celular;
 import br.com.sosysters.entities.Genero;
 import br.com.sosysters.entities.Usuaria;
 import br.com.sosysters.repositories.EtniaRepository;
@@ -44,7 +54,46 @@ public class UsuariaService implements UserDetailsService {
 
 	public List<UsuariaDto> findAll() {
 		List<Usuaria> result = usuariaRepository.findAll();
-		List<UsuariaDto> dto = result.stream().map(x -> new UsuariaDto(x)).toList();
+		return result.stream().map(UsuariaDto::new).toList();
+	}
+
+	@Transactional(readOnly = true)
+	public MeuCadastroDto carregarMeuCadastro(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		MeuCadastroDto dto = new MeuCadastroDto();
+		dto.setNomeUsuaria(usuaria.getNomeUsuaria());
+		dto.setSobrenomeUsuaria(usuaria.getSobrenomeUsuaria());
+		dto.setNomeSocialUsuaria(usuaria.getNomeSocialUsuaria());
+		dto.setDtNascimentoUsuaria(usuaria.getDtNascimentoUsuaria() != null ? usuaria.getDtNascimentoUsuaria().toLocalDate() : null);
+		dto.setRgUsuaria(usuaria.getRgUsuaria());
+		dto.setCpfUsuaria(usuaria.getCpfUsuaria());
+		dto.setEmailUsuaria(usuaria.getEmailUsuaria());
+		dto.setEtniaUsuaria(usuaria.getEtniaUsuaria() != null ? usuaria.getEtniaUsuaria().getIdEtnia() : null);
+		dto.setGeneroUsuaria(usuaria.getGeneroUsuaria() != null ? usuaria.getGeneroUsuaria().getIdGenero() : null);
+
+		celularRepository.findFirstByUsuariaCelular_IdUsuaria(usuaria.getIdUsuaria())
+				.ifPresent(celular -> dto.setTelefoneCompleto(formatarTelefone(celular.getDdd(), celular.getCelular())));
+
+		usuaria.getEnderecos().stream().findFirst().ifPresent(endereco -> {
+			dto.setCep(endereco.getCep());
+			dto.setNumeroResidencia(endereco.getNumResidencia());
+			dto.setComplemento(endereco.getComplemento());
+			if (endereco.getLogradouroEndereco() != null) {
+				dto.setLogradouro(endereco.getLogradouroEndereco().getLogradouro());
+			}
+			if (endereco.getBairroEndereco() != null) {
+				dto.setBairro(endereco.getBairroEndereco().getBairro());
+				if (endereco.getBairroEndereco().getCidadeBairro() != null) {
+					dto.setCidade(endereco.getBairroEndereco().getCidadeBairro().getCidade());
+					if (endereco.getBairroEndereco().getCidadeBairro().getEstadoCidade() != null) {
+						dto.setEstado(endereco.getBairroEndereco().getCidadeBairro().getEstadoCidade().getUfEstado());
+					}
+				}
+			}
+		});
+
 		return dto;
 	}
 
@@ -55,10 +104,11 @@ public class UsuariaService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
-		return usuariaRepository.findByEmailUsuariaIgnoreCase(username)
+		return usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(username)
 				.orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado!"));
 	}
 
+	@Transactional
 	public void cadastrarUsuaria(NovaUsuariaDto dto) {
 		Etnia etnia = etniaRepository.findById(dto.getEtniaUsuaria())
 									.orElseThrow(() -> new RuntimeException("Etnia não encontrada"));
@@ -73,7 +123,7 @@ public class UsuariaService implements UserDetailsService {
 			usuaria.setDtNascimentoUsuaria(Date.valueOf(dto.getDtNascimentoUsuaria()));
 		}
 		usuaria.setRgUsuaria(dto.getRgUsuaria());
-		usuaria.setCpfUsuaria(dto.getCpfUsuaria());
+		usuaria.setCpfUsuaria(dto.getCpfUsuaria() != null ? dto.getCpfUsuaria().replaceAll("\\D", "") : null);
 		usuaria.setEmailUsuaria(dto.getEmailUsuaria());
 		usuaria.setSenhaUsuaria(passwordEncoder.encode(dto.getSenhaUsuaria()));
 		usuaria.setEtniaUsuaria(etnia);
@@ -133,5 +183,58 @@ public class UsuariaService implements UserDetailsService {
 		} catch (IllegalArgumentException e) {
 			return "Formato de UUID inválido";
 		}
+	}
+
+	@Transactional
+	public void salvarFotosVerificacao(String email, byte[] selfie, byte[] documento) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if ((selfie == null || selfie.length == 0) || (documento == null || documento.length == 0)) {
+			throw new IllegalArgumentException("Ambas as imagens (selfie e documento) são obrigatórias.");
+		}
+
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).orElseGet(Foto::new);
+		foto.setUsuaria(usuaria);
+		foto.setSelfieVerificacao(selfie);
+		foto.setDocumentoVerificacao(documento);
+		foto.setIdentidadeVerificada(false);
+		foto.setDataVerificacao(LocalDateTime.now());
+		fotoRepository.save(foto);
+	}
+
+	@Transactional(readOnly = true)
+	public boolean verificarIdentidadeVerificada(String email) {
+		try {
+			Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+					.orElse(null);
+			if (usuaria == null) {
+				return false;
+			}
+			Optional<Foto> foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria);
+			return foto.map(Foto::isIdentidadeVerificada).orElse(false);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Transactional
+	public void aprovarIdentidade(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria)
+				.orElseThrow(() -> new IllegalStateException("Nenhum envio de verificação encontrado."));
+		foto.setIdentidadeVerificada(true);
+		fotoRepository.save(foto);
+	}
+
+	@Transactional
+	public void reprovarIdentidade(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).ifPresent(foto -> {
+			foto.setIdentidadeVerificada(false);
+			fotoRepository.save(foto);
+		});
 	}
 }

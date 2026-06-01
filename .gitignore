@@ -78,4 +78,5 @@ local.properties
 .recommenders
 
 *.lnk
-/infra/docker-compose.yaml
+/infra/*
+/.mvn/*

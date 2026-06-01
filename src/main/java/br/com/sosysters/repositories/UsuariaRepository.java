@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface UsuariaRepository extends JpaRepository<Usuaria, Long>{
 
-    Optional<Usuaria> findByEmailUsuariaIgnoreCase(String emailUsuaria);
+    Optional<Usuaria> findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(String emailUsuaria);
 }

@@ -1,0 +1,140 @@
+@import url(geral.css);
+@import url(header.css);
+@import url(footer.css);
+
+.cadastro-page {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1rem 2rem;
+}
+
+.cadastro-card {
+  width: min(100%, 980px);
+  background: var(--cor-botao);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.cadastro-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.6rem;
+}
+
+.cadastro-subtitle {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.cadastro-feedback {
+  margin-bottom: 12px;
+  text-align: center;
+  color: #00695c;
+  font-weight: 700;
+}
+
+.cadastro-feedback.erro {
+  color: #b00020;
+}
+
+.cadastro-feedback.sucesso {
+  color: #00695c;
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.texto-form {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.cadastro-form input,
+.cadastro-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.linha {
+  display: grid;
+  gap: 14px;
+}
+
+.duas-colunas {
+  grid-template-columns: 1fr;
+}
+
+.tres-colunas {
+  grid-template-columns: 1fr;
+}
+
+.acoes-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-salvar {
+  background-color: var(--cor-botao);
+  color: #000;
+}
+
+.btn-cancelar {
+  background-color: #f2f2f2;
+  color: #111;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.btn:hover {
+  background-color: var(--cor-hover);
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .duas-colunas {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tres-colunas {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cadastro-card {
+    padding: 16px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+

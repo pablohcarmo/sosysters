@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Avaliações</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-avaliacoes.css}">
+    </th:block>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <section class="secao-avaliacoes">
+            <div class="card-avaliacoes">
+                <h1>Avaliações</h1>
+                <p class="subtitulo">Confira a média das avaliações recebidas e a distribuição por estrelas.</p>
+
+                <div class="resumo-avaliacoes">
+                    <div class="resumo-item destaque">
+                        <span class="resumo-label">Média</span>
+                        <span class="resumo-valor">0.0</span>
+                    </div>
+                    <div class="resumo-item">
+                        <span class="resumo-label">Total de avaliações</span>
+                        <span class="resumo-valor">0</span>
+                    </div>
+                </div>
+
+                <div class="distribuicao-avaliacoes">
+                    <h2>Distribuição das avaliações</h2>
+
+                    <div class="rating-bar">
+                        <span class="rating-label">⭐ 5</span>
+                        <div class="bar"><div id="bar-5"></div></div>
+                        <span id="count-5" class="rating-count">0</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">⭐ 4</span>
+                        <div class="bar"><div id="bar-4"></div></div>
+                        <span id="count-4" class="rating-count">0</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">⭐ 3</span>
+                        <div class="bar"><div id="bar-3"></div></div>
+                        <span id="count-3" class="rating-count">0</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">⭐ 2</span>
+                        <div class="bar"><div id="bar-2"></div></div>
+                        <span id="count-2" class="rating-count">0</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">⭐ 1</span>
+                        <div class="bar"><div id="bar-1"></div></div>
+                        <span id="count-1" class="rating-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

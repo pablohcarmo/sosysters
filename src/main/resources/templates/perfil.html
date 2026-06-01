@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Perfil</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-perfil.css}">
+        <link rel="stylesheet" th:href="@{/css/style-verificacao.css}">
+    </th:block>
+</head>
+<body>
+    <main layout:fragment="content">
+        <p class="mensagem-flash" th:if="${mensagem}" th:text="${mensagem}"></p>
+        <section class="secao">
+            <div class="perfil">
+                <form th:action="@{/perfil/foto}" method="post" enctype="multipart/form-data" class="upload-foto-form">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <label for="fotoPerfil" class="foto-perfil-label" title="Clique para alterar a foto">
+                        <img class="foto-perfil" th:if="${fotoPerfilBase64 != null}"
+                             th:src="${'data:image/*;base64,' + fotoPerfilBase64}"
+                             alt="Foto do usuário">
+                        <img class="foto-perfil" th:unless="${fotoPerfilBase64 != null}"
+                             th:src="@{/images/foto perfil.png}"
+                             alt="Foto do usuário">
+                        <img th:if="${identidadeVerificada}" th:src="@{/images/icons/icon_verified.png}" alt="Identidade verificada" class="icon-verified" title="Identidade verificada">
+                    </label>
+                    <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" hidden onchange="this.form.submit()">
+                </form>
+                <h2 class="nome-usuario">
+                    <span th:text="${cadastro.nomeUsuaria} + ' ' + ${cadastro.sobrenomeUsuaria}"></span>
+                </h2>
+                <a th:href="@{/profissoes/gerenciar}" class="profissao-link" title="Clique para gerenciar suas profissões">
+                    <p class="profissao" th:text="${profissaoAtual}">Definir profissão</p>
+                </a>
+
+
+                <div class="avaliacao">
+                    <span class="estrela" data-valor="1">★</span>
+                    <span class="estrela" data-valor="2">★</span>
+                    <span class="estrela" data-valor="3">★</span>
+                    <span class="estrela" data-valor="4">★</span>
+                    <span class="estrela" data-valor="5">★</span>
+                </div>
+
+                <p class="nota">Avaliação: <span id="nota-media">0.0</span>/5</p>
+            </div>
+        </section>
+
+        <section>
+                <div class="opcao">
+                <a th:href="@{/trocar-senha}">Alterar senha</a>
+                <a href="#">Notificações</a>
+                <a href="#">Pagamentos</a>
+                <a th:href="@{/meu-cadastro}">Meu Cadastro</a>
+                <a th:if="${!identidadeVerificada}" href="#modalVerificacao" class="link-verificacao">Verificar identidade</a>
+                <a th:href="@{/}">Sair</a>
+            </div>
+        </section>
+
+        <!-- Modal de Verificação de Identidade -->
+        <div id="modalVerificacao" th:if="${!identidadeVerificada}" class="modal-verificacao">
+            <div class="modal-content-verificacao">
+                <span class="close-modal">&times;</span>
+                <h3>Verificar Identidade</h3>
+                <p class="info-verificacao">Para garantir a segurança, please forneça uma selfie e uma foto do seu documento de identidade válido.</p>
+
+                <form th:action="@{/perfil/verificar-identidade}" method="post" enctype="multipart/form-data" class="form-verificacao">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                    <div class="grupo-upload">
+                        <label for="selfieUpload" class="label-upload">
+                            <div class="upload-box">
+                                <span class="emoji-upload">🤳</span>
+                                <p>Clique para anexar uma SELFIE</p>
+                                <small>ou arraste a imagem</small>
+                            </div>
+                            <input type="file" id="selfieUpload" name="selfie" accept="image/*" required>
+                        </label>
+                        <div id="selfiePreview" class="preview-container"></div>
+                    </div>
+
+                    <div class="grupo-upload">
+                        <label for="documentoUpload" class="label-upload">
+                            <div class="upload-box">
+                                <span class="emoji-upload">📄</span>
+                                <p>Clique para anexar DOCUMENTO LEGAL</p>
+                                <small>Documentos válidos: CIN, CNH ou RG com CPF</small>
+                            </div>
+                            <input type="file" id="documentoUpload" name="documento" accept="image/*" required>
+                        </label>
+                        <div id="documentoPreview" class="preview-container"></div>
+                    </div>
+
+                    <div class="botoes-verificacao">
+                        <button type="submit" class="botao-enviar">Enviar para Verificação</button>
+                        <button type="button" class="botao-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript" th:src="@{/scripts/perfil.js}"></script>
+        <script type="text/javascript" th:src="@{/scripts/perfil-verificacao.js}"></script>
+    </main>
+</body>
+</html>

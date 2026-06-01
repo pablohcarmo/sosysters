@@ -43,7 +43,30 @@ function coletarDadosFormulario() {
         emailUsuaria: document.getElementById("email").value,
         senhaUsuaria: document.getElementById("senha").value,
         etniaUsuaria: parseInt(document.getElementById("etnia").value) || null,
-        generoUsuaria: parseInt(document.getElementById("genero").value) || null
+        generoUsuaria: parseInt(document.getElementById("genero").value) || null,
+
+        // telefone (campo único: DDD + número). Backend espera dddCelular (2 digits) and celular (number without DDD)
+        dddCelular: (function() {
+            const el = document.getElementById("celular");
+            if (!el) return null;
+            const digits = el.value.replace(/\D/g, '').slice(0,11);
+            return digits.length >= 2 ? digits.slice(0,2) : null;
+        })(),
+        celular: (function() {
+            const el = document.getElementById("celular");
+            if (!el) return null;
+            const digits = el.value.replace(/\D/g, '').slice(0,11);
+            return digits.length > 2 ? digits.slice(2) : null;
+        })(),
+
+        // endereco
+        cep: document.getElementById("cep") ? document.getElementById("cep").value.replace(/\D/g, "") : null,
+        logradouro: document.getElementById("logradouro") ? document.getElementById("logradouro").value : null,
+        numeroResidencia: document.getElementById("numero") ? document.getElementById("numero").value : null,
+        complemento: document.getElementById("complemento") ? document.getElementById("complemento").value : null,
+        bairro: document.getElementById("bairro") ? document.getElementById("bairro").value : null,
+        cidade: document.getElementById("cidade") ? document.getElementById("cidade").value : null,
+        estado: document.getElementById("estado") ? document.getElementById("estado").value : null
     };
 }
 
@@ -122,6 +145,31 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 this.style.borderColor = ""; // Padrão enquanto digita
             }
+        });
+    }
+
+    // Formatação do telefone (DDD + número) em um único campo: (DD) NNNNN-NNNN
+    const inputTel = document.getElementById("celular");
+    if (inputTel) {
+        inputTel.addEventListener("input", function() {
+            let digits = this.value.replace(/\D/g, '').slice(0,11); // max 11 digits (2 DDD + 9 number)
+            if (digits.length <= 2) {
+                this.value = digits.length ? `(${digits}` : ""; // partial DDD like (1 or (11
+            } else if (digits.length <= 6) {
+                // DDD + up to 4 digits of number
+                this.value = `(${digits.slice(0,2)}) ${digits.slice(2)}`;
+            } else {
+                // full formatting: (DD) 9XXXX-XXXX
+                this.value = `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`;
+            }
+        });
+        inputTel.addEventListener("paste", function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = pasted.replace(/\D/g, '').slice(0,11);
+            if (digits.length <= 2) this.value = digits.length ? `(${digits}` : "";
+            else if (digits.length <= 6) this.value = `(${digits.slice(0,2)}) ${digits.slice(2)}`;
+            else this.value = `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`;
         });
     }
 

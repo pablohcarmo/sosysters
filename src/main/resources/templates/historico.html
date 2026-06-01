@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Historico</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-historico.css}">
+    </th:block>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <section class="secao">
+        <h1 class="titulo">Historico</h1>
+
+        <div class="container">
+            <a class="btn" th:href="@{/carteira}">
+                <img th:src="@{/images/icone-saldo.svg}" alt="Icone de saldo" class="icone">
+                <p class="texto">Saldo</p>
+            </a>
+            <a class="btn" th:href="@{/loja}">
+                <img th:src="@{/images/icone-loja.svg}" alt="icone de loja" class="icone">
+                <p class="texto">Loja virtual</p>
+            </a>
+            <a class="btn btn-atual" th:href="@{/historico}">
+                <img th:src="@{/images/icone-historico.svg}" alt="Icone de historico de compras" class="icone">
+                <p class="texto">Historico</p>
+            </a>
+        </div>
+
+        <h6 class="subtitulo">Compras de Mcoins</h6>
+
+        <ul class="lista-loja">
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">1 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">Cartao de Credito</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 5,00</p>
+                    </div>
+                </div>
+
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p>
+                    <p class="texto-itens texto-info">HH:MM</p>
+                </div>
+            </li>
+
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">10 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">Cartao de Debito</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 50,00</p>
+                    </div>
+                </div>
+
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p>
+                    <p class="texto-itens texto-info">HH:MM</p>
+                </div>
+            </li>
+
+            <li class="itens-loja">
+                <div class="linha">
+                    <div class="quantidade">
+                        <p class="texto-itens">20 Mcoins</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">PIX</p>
+                        <p class="texto-itens">-</p>
+                        <p class="texto-itens">R$ 100,00</p>
+                    </div>
+                </div>
+
+                <div class="linha2">
+                    <p class="texto-itens texto-info">DD/MM/AAAA</p>
+                    <p class="texto-itens texto-info">HH:MM</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

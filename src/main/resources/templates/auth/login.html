@@ -16,13 +16,16 @@
     <img class="img img_logo" th:src="@{/images/S.O 1.png}" alt="Logo SOSYSTERS">
     <h1 class="titulo">Bem vinda!</h1>
 
+    <div th:if="${message}" class="mensagem-flash" th:text="${message}"></div>
+    <div th:if="${param.disabled}" class="mensagem-flash">Sua conta ainda não foi confirmada. Verifique seu email ou solicite um novo link.</div>
+
     <form th:action="@{/login}" method="post" class="form-login">
         <div th:if="${param.error}" class="mensagem-erro">
             Email ou senha inválidos.
         </div>
 
         <p class="login">Login</p>
-        <input class="campo_login" type="email" name="username" placeholder="Digite seu email" required autocomplete="username">
+        <input class="campo_login" type="email" name="username" placeholder="Digite seu email" required autocomplete="username" th:value="${param.email}">
 
         <p class="login">Senha</p>
         <input class="campo_login" type="password" name="password" placeholder="Digite sua senha" required autocomplete="current-password">
@@ -34,10 +37,22 @@
 
     <a class="btn_esqueci ancora" th:href="@{/suporte}">Esqueci minha senha</a>
     <a class="btn_criar ancora" th:href="@{/cadastro}">Criar uma conta</a>
-</div>
-<div class="form-group">
-    <label for="remember-me" class="required">Lembrar de mim:</label>
-    <input id="remember-me" name="remember-me" type="checkbox" class="form-control">
+
+    <section th:if="${param.disabled}" class="secao-reenvio-confirmacao" aria-labelledby="titulo-reenvio">
+        <h2 id="titulo-reenvio" class="titulo-reenvio">Reenviar email de confirmação</h2>
+        <p class="texto-reenvio">
+            Se o link venceu, informe o email do cadastro para gerar um novo token válido por 15 minutos.
+        </p>
+
+        <form th:action="@{/resend-confirmation}" method="post" class="form-reenvio">
+            <label class="label-reenvio" for="emailReenvio">Email cadastrado</label>
+            <input id="emailReenvio" class="campo_login" type="email" name="email" placeholder="Digite seu email" required autocomplete="email" th:value="${param.email}">
+
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <button class="btn_reenvio ancora" type="submit">Reenviar email</button>
+        </form>
+    </section>
 </div>
 
 <script type="text/javascript" th:src="@{/scripts/main.js}"></script>

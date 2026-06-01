@@ -1,9 +1,11 @@
 package br.com.sosysters.entities;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +13,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,8 +51,14 @@ public class Usuaria implements UserDetails {
 	@Column (name = "email")
 	private String emailUsuaria;
 
-	@Column (name = "senha", length = 255)
+	@Column (name = "senha")
 	private String senhaUsuaria;
+
+	@ManyToMany
+	@JoinTable(name = "Usuarias_Enderecos",
+			joinColumns = @JoinColumn(name = "id_usuaria"),
+			inverseJoinColumns = @JoinColumn(name = "id_endereco"))
+	private Set<Endereco> enderecos = new HashSet<>();
 
 	@ManyToOne
 	@JoinColumn (name = "id_etnia")
@@ -162,6 +172,14 @@ public class Usuaria implements UserDetails {
 
 	public void setCpfUsuaria(String cpfUsuaria) {
 		this.cpfUsuaria = cpfUsuaria;
+	}
+
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public String getRgUsuaria() {

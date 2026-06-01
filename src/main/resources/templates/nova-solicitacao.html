@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{components/layout}">
+
+<head>
+    <title>Nova Solicitacao</title>
+    <th:block layout:fragment="head">
+        <link rel="stylesheet" th:href="@{/css/style-nova-sol.css}">
+    </th:block>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <form id="form-solicitacao" th:action="@{/nova-solicitacao}" method="post">
+        <h2 class="titulo texto">Nova Solicitacao</h2>
+        <p class="subtitulo texto">Selecione o tipo de servico que voce precisa:</p>
+
+        <p class="texto" th:if="${mensagem}" th:text="${mensagem}"></p>
+        <p class="texto" th:if="${mensagemErro}" th:text="${mensagemErro}"></p>
+
+        <label for="servico"><span class="texto-soli texto">Servico:</span></label>
+        <select class="select-servico" id="servico" name="servico" required>
+            <option value="">Selecione</option>
+            <option value="hidraulica">Hidraulica</option>
+            <option value="pintura">Pintura</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="mudanca">Mudanca</option>
+            <option value="pedreira">Pedreira</option>
+            <option value="empreiteira">Empreiteira</option>
+            <option value="outros">Outros</option>
+        </select>
+
+        <label for="problema"><span class="texto-soli">Descricao do trabalho:</span></label>
+        <textarea id="problema" name="problema" rows="10" required></textarea>
+
+        <label for="fotos"><span class="texto-soli texto">Adicione fotos (opcional):</span></label>
+        <input class="input-soli" type="file" id="fotos" name="fotos" multiple>
+
+        <button class="btn-soli" type="submit">Enviar</button>
+    </form>
+</main>
+</body>
+</html>

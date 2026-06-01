@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOSYSTERS - Plataforma de Conexão e Prestação de Serviços Entre Mulheres</title>
+
+    <link rel="icon" th:href="@{/images/icons/icon_sosysters.png}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/geral.css}">
+    <link rel="stylesheet" th:href="@{/css/style-index.css}">
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img th:src="@{/images/S.O 1.png}" alt="Logo SOSYSTERS" class="logo-img">
+                <span class="logo-text">S.O.SYSTERS</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#sobre" class="nav-link">Sobre</a>
+                <a href="#funcionalidades" class="nav-link">Funcionalidades</a>
+                <a href="#contato" class="nav-link">Contato</a>
+                <a th:href="@{/login}" class="btn-login-header">Entrar</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Bem-vinda ao SOSYSTERS</h1>
+            <p class="hero-subtitle">Conectando mulheres e ampliando oportunidades de negócios e prestação de serviços</p>
+            <div class="hero-buttons">
+                <a th:href="@{/login}" class="btn btn-primary">Fazer Login</a>
+                <a th:href="@{/cadastro}" class="btn btn-secondary">Criar Conta</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img th:src="@{/images/S.O 1.png}" alt="Logo Grande" class="hero-logo">
+        </div>
+    </section>
+
+    <!-- SOBRE SECTION -->
+    <section id="sobre" class="sobre">
+        <div class="container-section">
+            <h2 class="section-title">Sobre o SOSYSTERS</h2>
+            <div class="sobre-grid">
+                <div class="sobre-item">
+                    <div class="icon-box">🤝</div>
+                    <h3>Rede de Conexão</h3>
+                    <p>Conecte-se com outras mulheres e expanda sua rede profissional e de negócios.</p>
+                </div>
+                <div class="sobre-item">
+                    <div class="icon-box">💼</div>
+                    <h3>Prestação de Serviços</h3>
+                    <p>Ofereça seus serviços ou solicite ajuda de profissionais qualificadas na comunidade.</p>
+                </div>
+                <div class="sobre-item">
+                    <div class="icon-box">🔒</div>
+                    <h3>Segurança e Confiança</h3>
+                    <p>Ambiente seguro e verificado para transações e interações entre membros.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUNCIONALIDADES SECTION -->
+    <section id="funcionalidades" class="funcionalidades">
+        <div class="container-section">
+            <h2 class="section-title">Funcionalidades Principais</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📋 Feed de Solicitações</h3>
+                    <p>Acompanhe solicitações de serviços e encontre oportunidades para oferecer sua expertise.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💬 Sistema de Chat (Em desenvolvimento)</h3>
+                    <p>Comunique-se diretamente com outras usuárias para negociar e detalhar seus serviços.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⭐ Avaliações</h3>
+                    <p>Construa sua reputação através de avaliações e feedback da comunidade.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👤 Perfil Profissional</h3>
+                    <p>Crie um perfil destacado com suas competências e histórico de trabalhos.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔔 Notificações</h3>
+                    <p>Receba atualizações sobre suas solicitações e mensagens importantes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Verificação</h3>
+                    <p>Membros verificados garantem mais segurança e confiança nas transações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container-section">
+            <h2 class="cta-title">Pronta para Começar?</h2>
+            <p class="cta-subtitle">Junte-se a milhares de mulheres transformando oportunidades em realidade</p>
+            <a th:href="@{/cadastro}" class="btn btn-primary btn-large">Crie sua Conta Agora</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contato">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SOSYSTERS</h4>
+                <p>Plataforma de conexão e prestação de serviços entre mulheres.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#funcionalidades">Funcionalidades</a></li>
+                    <li><a th:href="@{/suporte}">Suporte</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p>Email: famfacul@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SOSYSTERS. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/scripts/index.js}"></script>
+</body>
+</html>

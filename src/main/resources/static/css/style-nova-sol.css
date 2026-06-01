@@ -52,6 +52,7 @@ textarea {
     background-color: var(--cor-botao);
     padding: 10px 100px;
     border-radius: 5px;
+    border: none;
     margin-top: 5rem;
     text-decoration: none;
     color: #000000;

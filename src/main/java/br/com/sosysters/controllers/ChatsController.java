@@ -10,6 +10,6 @@ public class ChatsController {
 
     @GetMapping
     public String loadChatsPage() {
-        return "chats";
+        return "em-construcao";
     }
 }

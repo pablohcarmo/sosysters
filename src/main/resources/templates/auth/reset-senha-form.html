@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Senha</title>
+    <link rel="icon" th:href="@{/images/icons/icon_sosysters.png}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <img class="img img_logo" th:src="@{/images/S.O 1.png}" alt="Logo SOSYSTERS">
+    <h1 class="titulo">Definir Nova Senha</h1>
+
+    <div th:if="${message}" class="mensagem-flash" th:text="${message}"></div>
+    <div th:if="${error}" class="mensagem-erro" th:text="${error}"></div>
+
+    <form th:action="@{/reset-senha/confirmar}" method="post" class="form-login">
+        <input type="hidden" name="token" th:value="${token}">
+
+        <p class="login">Nova Senha</p>
+        <input class="campo_login" type="password" name="senha" placeholder="Digite sua nova senha" required autocomplete="new-password">
+
+        <p class="login">Confirmar Senha</p>
+        <input class="campo_login" type="password" name="confirmaSenha" placeholder="Confirme sua nova senha" required autocomplete="new-password">
+
+        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+        <button class="btn_entrar ancora" type="submit">Atualizar Senha</button>
+    </form>
+
+    <a class="btn_criar ancora" th:href="@{/login}" style="margin-top: 20px;">Voltar ao Login</a>
+</div>
+
+<script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+</body>
+</html>
+

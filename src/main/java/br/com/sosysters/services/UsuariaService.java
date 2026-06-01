@@ -170,7 +170,7 @@ public class UsuariaService implements UserDetailsService {
 		UsuariaConfirmacaoToken verificador = new UsuariaConfirmacaoToken();
 		verificador.setUsuaria(usuaria);
 		verificador.setUuid(UUID.randomUUID());
-		verificador.setDataExpiracao(Instant.now().plusSeconds(900)); // Token válido por 15 minutos
+		verificador.setDataExpiracao(Instant.now().plusSeconds(3600)); // Token válido por 1 hora
 		usuariaConfirmacaoTokenRepository.save(verificador);
 
 		// Envia email após salvar usuária e token
@@ -182,6 +182,7 @@ public class UsuariaService implements UserDetailsService {
 		String link = baseUrl + "/verify-email/" + verificador.getUuid().toString();
 		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n" +
 				"Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n" +
+				"Este link é válido por 1 hora.\n" +
 				"Se o link não funcionar, copie e cole no seu navegador.\n\n" +
 				"Atenciosamente,\n" + "A equipe do SOSysters";
 		try {
@@ -451,7 +452,7 @@ public class UsuariaService implements UserDetailsService {
 				.orElseGet(UsuariaConfirmacaoToken::new);
 		token.setUsuaria(usuaria);
 		token.setUuid(UUID.randomUUID());
-		token.setDataExpiracao(Instant.now().plusSeconds(900));
+		token.setDataExpiracao(Instant.now().plusSeconds(3600)); // Token válido por 1 hora
 		usuariaConfirmacaoTokenRepository.save(token);
 
 		String baseUrl = request.getScheme() + "://" + request.getServerName();
@@ -463,7 +464,7 @@ public class UsuariaService implements UserDetailsService {
 		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n"
 				+ "Seu link anterior expirou ou você solicitou um novo link de confirmação.\n"
 				+ "Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n"
-				+ "Este link é válido por 15 minutos.\n\n"
+				+ "Este link é válido por 1 hora.\n\n"
 				+ "Atenciosamente,\nA equipe do SOSysters";
 
 		try {
@@ -551,5 +552,84 @@ public class UsuariaService implements UserDetailsService {
 			foto.setIdentidadeVerificada(false);
 			fotoRepository.save(foto);
 		});
+	}
+
+	@Transactional
+	public String enviarLinkResetSenha(String email, HttpServletRequest request) {
+		Optional<Usuaria> opt = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email);
+		if (opt.isEmpty()) {
+			return "Se este email estiver cadastrado, você receberá um link para resetar a senha.";
+		}
+
+		Usuaria usuaria = opt.get();
+		UsuariaConfirmacaoToken token = usuariaConfirmacaoTokenRepository.findByUsuaria(usuaria)
+				.orElseGet(UsuariaConfirmacaoToken::new);
+		token.setUsuaria(usuaria);
+		token.setUuid(UUID.randomUUID());
+		token.setDataExpiracao(Instant.now().plusSeconds(3600)); // Token válido por 1 hora
+		usuariaConfirmacaoTokenRepository.save(token);
+
+		String baseUrl = request.getScheme() + "://" + request.getServerName();
+		if ((request.getScheme().equals("http") && request.getServerPort() != 80) ||
+		    (request.getScheme().equals("https") && request.getServerPort() != 443)) {
+			baseUrl += ":" + request.getServerPort();
+		}
+		String link = baseUrl + "/reset-senha/" + token.getUuid();
+		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n"
+				+ "Você solicitou a recuperação de senha.\n"
+				+ "Clique no link abaixo para redefinir sua senha:\n" + link + "\n\n"
+				+ "Este link é válido por 1 hora.\n"
+				+ "Se você não solicitou isto, ignore este email.\n\n"
+				+ "Atenciosamente,\nA equipe do SOSysters";
+
+		try {
+			emailService.enviarEmail(usuaria.getEmailUsuaria(), "Recuperação de Senha SOSysters", corpo);
+			return "Se este email estiver cadastrado, você receberá um link para resetar a senha.";
+		} catch (Exception e) {
+			return "Se este email estiver cadastrado, você receberá um link para resetar a senha.";
+		}
+	}
+
+	public String validarTokenResetSenha(String uuid) {
+		try {
+			var opt = usuariaConfirmacaoTokenRepository.findByUuid(UUID.fromString(uuid));
+			if (opt.isEmpty()) {
+				return "Token inválido";
+			}
+
+			UsuariaConfirmacaoToken token = opt.get();
+			if (Instant.now().isAfter(token.getDataExpiracao())) {
+				return "Link expirado! Solicite um novo link de recuperação.";
+			}
+
+			return "valid";
+		} catch (IllegalArgumentException e) {
+			return "Formato de token inválido";
+		}
+	}
+
+	@Transactional
+	public String resetarSenha(String uuid, String novaSenha) {
+		try {
+			var opt = usuariaConfirmacaoTokenRepository.findByUuid(UUID.fromString(uuid));
+			if (opt.isEmpty()) {
+				return "Token inválido";
+			}
+
+			UsuariaConfirmacaoToken token = opt.get();
+			if (Instant.now().isAfter(token.getDataExpiracao())) {
+				usuariaConfirmacaoTokenRepository.delete(token);
+				return "Link expirado! Solicite um novo link de recuperação.";
+			}
+
+			Usuaria usuaria = token.getUsuaria();
+			usuaria.setSenhaUsuaria(passwordEncoder.encode(novaSenha));
+			usuariaRepository.save(usuaria);
+			usuariaConfirmacaoTokenRepository.delete(token);
+
+			return "Senha atualizada com sucesso!";
+		} catch (IllegalArgumentException e) {
+			return "Formato de token inválido";
+		}
 	}
 }

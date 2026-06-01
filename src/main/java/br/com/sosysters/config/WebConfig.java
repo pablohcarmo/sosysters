@@ -76,6 +76,8 @@ public class WebConfig implements WebMvcConfigurer {
 						"/index",
 						"/cadastro",
 						"/resend-confirmation",
+						"/reset-senha",
+						"/reset-senha/**",
 						"/ajuda",
 						"/api/etnias",
 						"/api/generos",

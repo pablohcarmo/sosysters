@@ -68,7 +68,7 @@ public class Usuaria implements UserDetails {
 	@JoinColumn (name = "id_genero")
 	private Genero generoUsuaria;
 
-	@Column (name = "usuaria_verificada", nullable = false)
+	@Column (name = "usuaria_verificada")
 	private boolean usuariaVerificado;
 
 	@Override

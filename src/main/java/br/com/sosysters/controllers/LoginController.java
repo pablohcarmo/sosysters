@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoginController {
@@ -48,8 +49,8 @@ public class LoginController {
 
   @PostMapping("/resend-confirmation")
   public String reenviarConfirmacao(@RequestParam("email") String email,
-                RedirectAttributes redirectAttributes) {
-    String mensagem = usuariaService.reenviarEmailConfirmacao(email);
+                RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    String mensagem = usuariaService.reenviarEmailConfirmacao(email, request);
     redirectAttributes.addFlashAttribute("message", mensagem);
     return "redirect:/login";
   }

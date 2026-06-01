@@ -92,7 +92,8 @@ select {
 .btn {
     width: 100%;
     padding: 12px;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     border-radius: 5px;
     background-color: var(--cor-botao);
     color: #000;
@@ -104,4 +105,40 @@ select {
 
 .btn:hover {
     background-color: var(--cor-hover);
+}
+
+/* ===== MOBILE (max-width: 550px) ===== */
+@media (max-width: 550px) {
+    body {
+        padding: 12px;
+    }
+
+    form {
+        padding: 14px;
+        max-width: 100%;
+    }
+
+    form img {
+        max-width: 100px;
+        margin-bottom: 16px;
+    }
+
+    .texto-form {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    input,
+    select {
+        padding: 8px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 11px;
+        margin-top: 12px;
+        font-size: 15px;
+    }
 }

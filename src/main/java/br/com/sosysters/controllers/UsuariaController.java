@@ -12,6 +12,7 @@ import br.com.sosysters.dto.NovaUsuariaDto;
 import br.com.sosysters.services.UsuariaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping ("/usuarias")
@@ -23,10 +24,10 @@ public class UsuariaController {
 
 
 	@PostMapping
-	public ResponseEntity<?> cadastrarUsuaria(@RequestBody NovaUsuariaDto dto) {
+	public ResponseEntity<?> cadastrarUsuaria(@RequestBody NovaUsuariaDto dto, HttpServletRequest request) {
 		logger.info("Recebendo cadastro de usuária: {} - {}", dto.getNomeUsuaria(), dto.getEmailUsuaria());
 		try {
-			usuariaService.cadastrarUsuaria(dto);
+			usuariaService.cadastrarUsuaria(dto, request);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		} catch (Exception e) {
 			logger.error("Erro ao cadastrar usuária", e);

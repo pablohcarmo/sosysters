@@ -42,6 +42,7 @@ import br.com.sosysters.entities.Usuaria;
 import br.com.sosysters.repositories.EtniaRepository;
 import br.com.sosysters.repositories.GeneroRepository;
 import br.com.sosysters.repositories.UsuariaRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UsuariaService implements UserDetailsService {
@@ -140,7 +141,7 @@ public class UsuariaService implements UserDetailsService {
 	}
 
 	@Transactional
-	public void cadastrarUsuaria(NovaUsuariaDto dto) {
+	public void cadastrarUsuaria(NovaUsuariaDto dto, HttpServletRequest request) {
 		Etnia etnia = etniaRepository.findById(dto.getEtniaUsuaria())
 									.orElseThrow(() -> new RuntimeException("Etnia não encontrada"));
 		Genero genero = generoRepository.findById(dto.getGeneroUsuaria())
@@ -173,7 +174,12 @@ public class UsuariaService implements UserDetailsService {
 		usuariaConfirmacaoTokenRepository.save(verificador);
 
 		// Envia email após salvar usuária e token
-		String link = "http://localhost:8080/verify-email/" + verificador.getUuid().toString();
+		String baseUrl = request.getScheme() + "://" + request.getServerName();
+		if ((request.getScheme().equals("http") && request.getServerPort() != 80) ||
+		    (request.getScheme().equals("https") && request.getServerPort() != 443)) {
+			baseUrl += ":" + request.getServerPort();
+		}
+		String link = baseUrl + "/verify-email/" + verificador.getUuid().toString();
 		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n" +
 				"Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n" +
 				"Se o link não funcionar, copie e cole no seu navegador.\n\n" +
@@ -429,7 +435,7 @@ public class UsuariaService implements UserDetailsService {
 	}
 
 	@Transactional
-	public String reenviarEmailConfirmacao(String emailUsuaria) {
+	public String reenviarEmailConfirmacao(String emailUsuaria, HttpServletRequest request) {
 		if (emailUsuaria == null || emailUsuaria.isBlank()) {
 			return "Informe um email válido para reenviar a confirmação.";
 		}
@@ -448,7 +454,12 @@ public class UsuariaService implements UserDetailsService {
 		token.setDataExpiracao(Instant.now().plusSeconds(900));
 		usuariaConfirmacaoTokenRepository.save(token);
 
-		String link = "http://localhost:8080/verify-email/" + token.getUuid();
+		String baseUrl = request.getScheme() + "://" + request.getServerName();
+		if ((request.getScheme().equals("http") && request.getServerPort() != 80) ||
+		    (request.getScheme().equals("https") && request.getServerPort() != 443)) {
+			baseUrl += ":" + request.getServerPort();
+		}
+		String link = baseUrl + "/verify-email/" + token.getUuid();
 		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n"
 				+ "Seu link anterior expirou ou você solicitou um novo link de confirmação.\n"
 				+ "Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n"

@@ -72,6 +72,15 @@ body.menu-open .hamburger {
     margin-right: 8px;
 }
 
+.menu a.btn-menu img.foto-perfil {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
 .menu a p {
     display: inline-block;
     vertical-align: middle;

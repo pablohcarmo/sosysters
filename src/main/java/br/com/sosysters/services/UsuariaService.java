@@ -1,12 +1,22 @@
 package br.com.sosysters.services;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.sql.Date;
 import java.util.UUID;
+import java.util.Optional;
 
+import br.com.sosysters.entities.Foto;
 import br.com.sosysters.entities.UsuariaConfirmacaoToken;
 import br.com.sosysters.repositories.UsuariaConfirmacaoTokenRepository;
+import br.com.sosysters.repositories.FotoRepository;
+import br.com.sosysters.repositories.CelularRepository;
+import br.com.sosysters.repositories.EnderecoRepository;
+import br.com.sosysters.repositories.BairroRepository;
+import br.com.sosysters.repositories.CidadeRepository;
+import br.com.sosysters.repositories.EstadoRepository;
+import br.com.sosysters.repositories.LogradouroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,6 +61,27 @@ public class UsuariaService implements UserDetailsService {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private BairroRepository bairroRepository;
+
+	@Autowired
+	private LogradouroRepository logradouroRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private CelularRepository celularRepository;
+
+	@Autowired
+	private FotoRepository fotoRepository;
 
 	public List<UsuariaDto> findAll() {
 		List<Usuaria> result = usuariaRepository.findAll();
@@ -130,7 +161,10 @@ public class UsuariaService implements UserDetailsService {
 		usuaria.setGeneroUsuaria(genero);
 
 		// Primeiro persiste a usuária para que o token aponte para uma entidade gerenciada
-		usuariaRepository.save(usuaria);
+		usuaria = usuariaRepository.save(usuaria);
+
+		persistirTelefone(dto, usuaria);
+		persistirEndereco(dto, usuaria);
 
 		UsuariaConfirmacaoToken verificador = new UsuariaConfirmacaoToken();
 		verificador.setUsuaria(usuaria);
@@ -144,7 +178,11 @@ public class UsuariaService implements UserDetailsService {
 				"Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n" +
 				"Se o link não funcionar, copie e cole no seu navegador.\n\n" +
 				"Atenciosamente,\n" + "A equipe do SOSysters";
-		emailService.enviarEmail(usuaria.getEmailUsuaria(), "Confirme seu cadastro no SOSysters", corpo);
+		try {
+			emailService.enviarEmail(usuaria.getEmailUsuaria(), "Confirme seu cadastro no SOSysters", corpo);
+		} catch (Exception e) {
+			System.err.println("Erro ao enviar email de confirmação: " + e.getMessage());
+		}
 
 
 		/*emailService.enviarEmail(usuaria.getEmailUsuaria(), "Bem-vinda ao SOSysters!", "Olá " + usuaria.getNomeUsuaria() + ",\n\n" +
@@ -152,6 +190,211 @@ public class UsuariaService implements UserDetailsService {
 				"Se precisar de ajuda ou tiver alguma dúvida, não hesite em entrar em contato conosco. Estamos aqui para ajudar!\n\n" +
 				"Atenciosamente,\n" +
 				"A equipe do SOSysters");*/
+	}
+
+	private void persistirTelefone(NovaUsuariaDto dto, Usuaria usuaria) {
+		if (dto.getDddCelular() == null || dto.getDddCelular().isBlank() || dto.getCelular() == null || dto.getCelular().isBlank()) {
+			return;
+		}
+
+		Celular celular = new Celular();
+		celular.setDdd(Integer.valueOf(dto.getDddCelular().replaceAll("\\D", "")));
+		celular.setCelular(Integer.valueOf(dto.getCelular().replaceAll("\\D", "")));
+		celular.setUsuariaCelular(usuaria);
+		celularRepository.save(celular);
+	}
+
+	private void persistirEndereco(NovaUsuariaDto dto, Usuaria usuaria) {
+		if (dto.getCep() == null || dto.getCep().isBlank()
+				|| dto.getLogradouro() == null || dto.getLogradouro().isBlank()
+				|| dto.getBairro() == null || dto.getBairro().isBlank()
+				|| dto.getCidade() == null || dto.getCidade().isBlank()
+				|| dto.getEstado() == null || dto.getEstado().isBlank()) {
+			return;
+		}
+
+		Estado estado = estadoRepository.findFirstByUfEstadoIgnoreCaseOrderByIdEstadoAsc(dto.getEstado())
+				.orElseGet(() -> {
+					Estado novo = new Estado();
+					novo.setUfEstado(dto.getEstado());
+					novo.setEstado(dto.getEstado());
+					return estadoRepository.save(novo);
+				});
+
+		Cidade cidade = cidadeRepository.findFirstByCidadeIgnoreCaseAndEstadoCidadeOrderByIdCidadeAsc(dto.getCidade(), estado)
+				.orElseGet(() -> {
+					Cidade nova = new Cidade();
+					nova.setCidade(dto.getCidade());
+					nova.setEstadoCidade(estado);
+					return cidadeRepository.save(nova);
+				});
+
+		Bairro bairro = bairroRepository.findFirstByBairroIgnoreCaseAndCidadeBairroOrderByIdBairroAsc(dto.getBairro(), cidade)
+				.orElseGet(() -> {
+					Bairro novo = new Bairro();
+					novo.setBairro(dto.getBairro());
+					novo.setCidadeBairro(cidade);
+					return bairroRepository.save(novo);
+				});
+
+		Logradouro logradouro = logradouroRepository.findFirstByLogradouroIgnoreCaseOrderByIdLogradouroAsc(dto.getLogradouro())
+				.orElseGet(() -> {
+					Logradouro novo = new Logradouro();
+					novo.setLogradouro(dto.getLogradouro());
+					return logradouroRepository.save(novo);
+				});
+
+		Endereco endereco = new Endereco();
+		endereco.setNumResidencia(dto.getNumeroResidencia());
+		endereco.setComplemento(dto.getComplemento());
+		endereco.setCep(dto.getCep());
+		endereco.setBairroEndereco(bairro);
+		endereco.setLogradouroEndereco(logradouro);
+		endereco = enderecoRepository.save(endereco);
+
+		usuaria.getEnderecos().add(endereco);
+		usuariaRepository.save(usuaria);
+	}
+
+	@Transactional
+	public void atualizarMeuCadastro(String email, MeuCadastroDto dto) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		usuaria.setNomeUsuaria(dto.getNomeUsuaria());
+		usuaria.setSobrenomeUsuaria(dto.getSobrenomeUsuaria());
+		usuaria.setNomeSocialUsuaria(dto.getNomeSocialUsuaria());
+		if (dto.getDtNascimentoUsuaria() != null) {
+			usuaria.setDtNascimentoUsuaria(Date.valueOf(dto.getDtNascimentoUsuaria()));
+		}
+		usuaria.setRgUsuaria(dto.getRgUsuaria());
+		usuaria.setCpfUsuaria(dto.getCpfUsuaria() != null ? dto.getCpfUsuaria().replaceAll("\\D", "") : null);
+		usuaria.setEmailUsuaria(dto.getEmailUsuaria());
+
+		if (dto.getEtniaUsuaria() != null) {
+			Etnia etnia = etniaRepository.findById(dto.getEtniaUsuaria())
+					.orElseThrow(() -> new RuntimeException("Etnia não encontrada"));
+			usuaria.setEtniaUsuaria(etnia);
+		}
+		if (dto.getGeneroUsuaria() != null) {
+			Genero genero = generoRepository.findById(dto.getGeneroUsuaria())
+					.orElseThrow(() -> new RuntimeException("Gênero não encontrada"));
+			usuaria.setGeneroUsuaria(genero);
+		}
+
+		usuariaRepository.save(usuaria);
+		atualizarTelefone(usuaria, dto.getTelefoneCompleto());
+		atualizarEndereco(usuaria, dto);
+	}
+
+	private void atualizarTelefone(Usuaria usuaria, String telefoneCompleto) {
+		if (telefoneCompleto == null || telefoneCompleto.isBlank()) {
+			return;
+		}
+
+		String digits = telefoneCompleto.replaceAll("\\D", "");
+		if (digits.length() < 10) {
+			throw new IllegalArgumentException("Informe um telefone válido com DDD.");
+		}
+
+		Integer ddd = Integer.valueOf(digits.substring(0, 2));
+		Integer numero = Integer.valueOf(digits.substring(2));
+
+		Celular celular = celularRepository.findFirstByUsuariaCelular_IdUsuaria(usuaria.getIdUsuaria())
+				.orElseGet(Celular::new);
+		celular.setDdd(ddd);
+		celular.setCelular(numero);
+		celular.setUsuariaCelular(usuaria);
+		celularRepository.save(celular);
+	}
+
+	private void atualizarEndereco(Usuaria usuaria, MeuCadastroDto dto) {
+		if (dto.getCep() == null || dto.getCep().isBlank()
+				|| dto.getLogradouro() == null || dto.getLogradouro().isBlank()
+				|| dto.getBairro() == null || dto.getBairro().isBlank()
+				|| dto.getCidade() == null || dto.getCidade().isBlank()
+				|| dto.getEstado() == null || dto.getEstado().isBlank()
+				|| dto.getNumeroResidencia() == null || dto.getNumeroResidencia().isBlank()) {
+			return;
+		}
+
+		Estado estado = estadoRepository.findFirstByUfEstadoIgnoreCaseOrderByIdEstadoAsc(dto.getEstado())
+				.orElseGet(() -> {
+					Estado novo = new Estado();
+					novo.setUfEstado(dto.getEstado());
+					novo.setEstado(dto.getEstado());
+					return estadoRepository.save(novo);
+				});
+
+		Cidade cidade = cidadeRepository.findFirstByCidadeIgnoreCaseAndEstadoCidadeOrderByIdCidadeAsc(dto.getCidade(), estado)
+				.orElseGet(() -> {
+					Cidade nova = new Cidade();
+					nova.setCidade(dto.getCidade());
+					nova.setEstadoCidade(estado);
+					return cidadeRepository.save(nova);
+				});
+
+		Bairro bairro = bairroRepository.findFirstByBairroIgnoreCaseAndCidadeBairroOrderByIdBairroAsc(dto.getBairro(), cidade)
+				.orElseGet(() -> {
+					Bairro novo = new Bairro();
+					novo.setBairro(dto.getBairro());
+					novo.setCidadeBairro(cidade);
+					return bairroRepository.save(novo);
+				});
+
+		Logradouro logradouro = logradouroRepository.findFirstByLogradouroIgnoreCaseOrderByIdLogradouroAsc(dto.getLogradouro())
+				.orElseGet(() -> {
+					Logradouro novo = new Logradouro();
+					novo.setLogradouro(dto.getLogradouro());
+					return logradouroRepository.save(novo);
+				});
+
+		Endereco endereco = usuaria.getEnderecos().stream().findFirst().orElseGet(Endereco::new);
+		endereco.setNumResidencia(dto.getNumeroResidencia());
+		endereco.setComplemento(dto.getComplemento());
+		endereco.setCep(dto.getCep());
+		endereco.setBairroEndereco(bairro);
+		endereco.setLogradouroEndereco(logradouro);
+		endereco = enderecoRepository.save(endereco);
+
+		if (!usuaria.getEnderecos().contains(endereco)) {
+			usuaria.getEnderecos().clear();
+			usuaria.getEnderecos().add(endereco);
+			usuariaRepository.save(usuaria);
+		}
+	}
+
+	private String formatarTelefone(Integer ddd, Integer celular) {
+		String dddFormatado = String.format("%02d", ddd);
+		String numero = String.valueOf(celular);
+		if (numero.length() <= 4) {
+			return "(" + dddFormatado + ") " + numero;
+		}
+		String prefixo = numero.substring(0, numero.length() - 4);
+		String sufixo = numero.substring(numero.length() - 4);
+		return "(" + dddFormatado + ") " + prefixo + "-" + sufixo;
+	}
+
+	@Transactional(readOnly = true)
+	public Optional<Foto> carregarFotoPerfil(String email) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		return fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria);
+	}
+
+	@Transactional
+	public void salvarFotoPerfil(String email, byte[] imagemPerfil) {
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if (imagemPerfil == null || imagemPerfil.length == 0) {
+			throw new IllegalArgumentException("A imagem enviada está vazia.");
+		}
+
+		Foto foto = fotoRepository.findFirstByUsuariaOrderByIdFotoDesc(usuaria).orElseGet(Foto::new);
+		foto.setUsuaria(usuaria);
+		foto.setImgPerfil(imagemPerfil);
+		fotoRepository.save(foto);
 	}
 
 	public String verificaToken(String uuid) {
@@ -168,7 +411,7 @@ public class UsuariaService implements UserDetailsService {
 			if (Instant.now().isAfter(usuariaVerificacao.getDataExpiracao())) {
 				// Token expirado: remove do banco e informa
 				usuariaConfirmacaoTokenRepository.delete(usuariaVerificacao);
-				return "Link expirado. Por favor, solicite um novo link de verificação!";
+				return "Link expirado!";
 			}
 
 			// Marca a usuária como verificada e persiste
@@ -183,6 +426,67 @@ public class UsuariaService implements UserDetailsService {
 		} catch (IllegalArgumentException e) {
 			return "Formato de UUID inválido";
 		}
+	}
+
+	@Transactional
+	public String reenviarEmailConfirmacao(String emailUsuaria) {
+		if (emailUsuaria == null || emailUsuaria.isBlank()) {
+			return "Informe um email válido para reenviar a confirmação.";
+		}
+
+		Usuaria usuaria = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(emailUsuaria)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+
+		if (usuaria.isUsuariaVerificado()) {
+			return "Esta conta já foi confirmada. Você pode fazer login normalmente.";
+		}
+
+		UsuariaConfirmacaoToken token = usuariaConfirmacaoTokenRepository.findByUsuaria(usuaria)
+				.orElseGet(UsuariaConfirmacaoToken::new);
+		token.setUsuaria(usuaria);
+		token.setUuid(UUID.randomUUID());
+		token.setDataExpiracao(Instant.now().plusSeconds(900));
+		usuariaConfirmacaoTokenRepository.save(token);
+
+		String link = "http://localhost:8080/verify-email/" + token.getUuid();
+		String corpo = "Olá " + usuaria.getNomeUsuaria() + ",\n\n"
+				+ "Seu link anterior expirou ou você solicitou um novo link de confirmação.\n"
+				+ "Clique no link abaixo para confirmar seu cadastro:\n" + link + "\n\n"
+				+ "Este link é válido por 15 minutos.\n\n"
+				+ "Atenciosamente,\nA equipe do SOSysters";
+
+		try {
+			emailService.enviarEmail(usuaria.getEmailUsuaria(), "Reenvio de confirmação SOSysters", corpo);
+			return "Email de confirmação reenviado. Verifique sua caixa de entrada.";
+		} catch (Exception e) {
+			return "Não foi possível reenviar o email de confirmação no momento.";
+		}
+	}
+
+	@Transactional
+	public void trocarSenha(String email, TrocarSenhaDto dto) {
+		var opt = usuariaRepository.findFirstByEmailUsuariaIgnoreCaseOrderByIdUsuariaAsc(email);
+		if (opt.isEmpty()) {
+			throw new UsernameNotFoundException("Usuário não encontrado");
+		}
+
+		Usuaria usuaria = opt.get();
+
+		if (dto.getCurrentPassword() == null || dto.getCurrentPassword().isBlank() ||
+				dto.getNewPassword() == null || dto.getNewPassword().isBlank()) {
+			throw new IllegalArgumentException("Preencha a senha atual e a nova senha.");
+		}
+
+		if (!passwordEncoder.matches(dto.getCurrentPassword(), usuaria.getSenhaUsuaria())) {
+			throw new InvalidCurrentPasswordException("Senha atual incorreta.");
+		}
+
+		if (passwordEncoder.matches(dto.getNewPassword(), usuaria.getSenhaUsuaria())) {
+			throw new IllegalArgumentException("A nova senha deve ser diferente da atual.");
+		}
+
+		usuaria.setSenhaUsuaria(passwordEncoder.encode(dto.getNewPassword()));
+		usuariaRepository.save(usuaria);
 	}
 
 	@Transactional

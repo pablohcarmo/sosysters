@@ -73,7 +73,7 @@ function coletarDadosFormulario() {
 // Função para receber os dados
 async function cadastrarUsuario(dadosUsuario) {
     try {
-        const response = await fetch('http://localhost:8080/usuarias', {
+        const response = await fetch('/usuarias', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dadosUsuario)

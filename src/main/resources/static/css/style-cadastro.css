@@ -37,15 +37,18 @@ form img {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     margin-top: 12px;
+    margin-left: 8px;
 }
 
 /* ===== INPUTS ===== */
 input,
 select {
-    width: 100%;
+    width: calc(100% - 16px);
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 /* ===== GRID ===== */
@@ -90,10 +93,12 @@ select {
 
 /* ===== BOTÃO ===== */
 .btn {
-    width: 100%;
+    width: calc(100% - 16px);
     padding: 12px;
     margin-top: 15px;
     margin-bottom: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
     border-radius: 5px;
     background-color: var(--cor-botao);
     color: #000;
@@ -126,13 +131,17 @@ select {
     .texto-form {
         font-size: 14px;
         margin-top: 10px;
+        margin-left: 6px;
     }
 
     input,
     select {
+        width: calc(100% - 12px);
         padding: 8px;
         margin-top: 4px;
         margin-bottom: 8px;
+        margin-left: 6px;
+        margin-right: 6px;
         font-size: 14px;
     }
 

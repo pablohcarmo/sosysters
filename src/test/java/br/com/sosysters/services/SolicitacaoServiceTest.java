@@ -13,7 +13,7 @@ class SolicitacaoServiceTest {
         SolicitacaoService service = new SolicitacaoService();
         int tamanhoInicial = service.listarParaPesquisa().size();
 
-        service.criarSolicitacao("pintura", "Pintura de parede externa");
+        service.criarSolicitacao("teste@email.com", "pintura", "Pintura de parede externa");
 
         assertEquals(tamanhoInicial + 1, service.listarParaPesquisa().size());
         assertEquals("Pintura", service.listarParaPesquisa().getFirst().titulo());
@@ -24,7 +24,7 @@ class SolicitacaoServiceTest {
     void deveManterCategoriasDinamicasParaPesquisa() {
         SolicitacaoService service = new SolicitacaoService();
 
-        service.criarSolicitacao("hidraulica", "Troca de registro do banheiro");
+        service.criarSolicitacao("teste@email.com", "hidraulica", "Troca de registro do banheiro");
 
         assertFalse(service.listarCategoriasPesquisa().isEmpty());
         assertEquals("all", service.listarCategoriasPesquisa().getFirst());

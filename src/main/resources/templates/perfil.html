@@ -20,7 +20,7 @@
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <label for="fotoPerfil" class="foto-perfil-label" title="Clique para alterar a foto">
                         <img class="foto-perfil" th:if="${fotoPerfilBase64 != null}"
-                             th:src="${'data:image/*;base64,' + fotoPerfilBase64}"
+                             th:src="${fotoPerfilBase64}"
                              alt="Foto do usuário">
                         <img class="foto-perfil" th:unless="${fotoPerfilBase64 != null}"
                              th:src="@{/images/foto perfil.png}"

@@ -29,7 +29,8 @@ public class GlobalModelAttributes {
         }
 
         return usuariaService.carregarFotoPerfil(usuaria.getUsername())
-                .map(foto -> Base64.getEncoder().encodeToString(foto.getImgPerfil()))
+                .filter(foto -> foto.getImgPerfil() != null)
+                .map(foto -> "data:image/*;base64," + Base64.getEncoder().encodeToString(foto.getImgPerfil()))
                 .orElse(null);
     }
 }

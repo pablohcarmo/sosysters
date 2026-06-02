@@ -7,7 +7,7 @@
     <div class="menu" id="menu">
         <a class="btn-menu" th:href="@{/perfil}">
             <img class="foto-perfil" th:if="${fotoPerfilBase64 != null}"
-                 th:src="${'data:image/*;base64,' + fotoPerfilBase64}"
+                 th:src="${fotoPerfilBase64}"
                  alt="Foto perfil">
             <img class="foto-perfil" th:unless="${fotoPerfilBase64 != null}"
                  th:src="@{/images/foto perfil.png}"

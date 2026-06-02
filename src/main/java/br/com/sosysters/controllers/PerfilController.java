@@ -29,8 +29,10 @@ public class PerfilController {
     @GetMapping
     public String loadPerfilPage(@AuthenticationPrincipal Usuaria usuaria, Model model) {
         model.addAttribute("cadastro", usuariaService.carregarMeuCadastro(usuaria.getUsername()));
-        usuariaService.carregarFotoPerfil(usuaria.getUsername()).ifPresent(foto ->
-                model.addAttribute("fotoPerfilBase64", Base64.getEncoder().encodeToString(foto.getImgPerfil())));
+        usuariaService.carregarFotoPerfil(usuaria.getUsername())
+                .filter(foto -> foto.getImgPerfil() != null)
+                .ifPresent(foto -> model.addAttribute("fotoPerfilBase64",
+                        "data:image/*;base64," + Base64.getEncoder().encodeToString(foto.getImgPerfil())));
 
         // Carregar status de verificação de identidade com tratamento de erro
         try {
@@ -60,8 +62,13 @@ public class PerfilController {
             return "redirect:/perfil";
         }
 
+        if (fotoPerfil.getSize() > 5 * 1024 * 1024) {
+            redirectAttributes.addFlashAttribute("mensagem", "A imagem deve ter no máximo 5MB.");
+            return "redirect:/perfil";
+        }
+
         try {
-            usuariaService.salvarFotoPerfil(usuaria.getUsername(), fotoPerfil.getBytes());
+            usuariaService.salvarFotoPerfil(usuaria.getUsername(), fotoPerfil.getInputStream().readAllBytes());
             redirectAttributes.addFlashAttribute("mensagem", "Foto de perfil atualizada com sucesso.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensagem", "Não foi possível atualizar a foto de perfil.");
@@ -80,8 +87,13 @@ public class PerfilController {
             return "redirect:/perfil";
         }
 
+        if (selfie.getSize() > 10 * 1024 * 1024 || documento.getSize() > 10 * 1024 * 1024) {
+            redirectAttributes.addFlashAttribute("mensagem", "Cada imagem deve ter no máximo 10MB.");
+            return "redirect:/perfil";
+        }
+
         try {
-            usuariaService.salvarFotosVerificacao(usuaria.getUsername(), selfie.getBytes(), documento.getBytes());
+            usuariaService.salvarFotosVerificacao(usuaria.getUsername(), selfie.getInputStream().readAllBytes(), documento.getInputStream().readAllBytes());
             redirectAttributes.addFlashAttribute("mensagem", "Dados enviados, em até 3 dias úteis, você receberá um retorno sobre a verificação por e-mail!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensagem", "Não foi possível verificar a identidade. Tente novamente.");

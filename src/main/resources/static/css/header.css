@@ -95,8 +95,8 @@ body.menu-open .hamburger {
 .chat {
     position: absolute;
     right: 3%;
-    top: 5%;
-    transform: translateY(-48%);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .foto-perfil {
